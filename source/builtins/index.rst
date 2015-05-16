@@ -6,19 +6,19 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   arithmetic/index
-   bitwise/index
-   boundary/index
-   cast/index
-   equality/index
-   exponential/index
    flow-control/index
-   large-object/index
    logic/index
-   maybe/index
-   named/index
+   equality/index
    ordering/index
-   rounding/index
-   sigma/index
+   arithmetic/index
+   exponential/index
    trigonometric/index
+   rounding/index
+   boundary/index
+   bitwise/index
+   large-object/index
+   sigma/index
+   named/index
+   maybe/index
    type-manipulation/index
+   cast/index
