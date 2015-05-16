@@ -18,7 +18,8 @@ import os
 # General information about the project.
 project = u'Modern'
 authors_list = [
-	u'GreyKnight'
+	u'Irene Knapp',
+	u'GreyKnight',
 ]
 copyright_year=2015
 project_short_desc=u'The Modern data/schema representation format.'

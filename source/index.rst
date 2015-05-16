@@ -6,6 +6,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   builtins/index.rst
 
 
 Indices and tables
