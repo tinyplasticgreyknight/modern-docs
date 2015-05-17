@@ -1,0 +1,98 @@
+title: Logarithmic and Exponential Builtins
+common:
+  type:
+    type_1ary_float32: &1ary_float32
+    - x: float32
+    - result: float32
+    type_1ary_float64: &1ary_float64
+    - x: float64
+    - result: float64
+    type_2ary_float32: &2ary_float32
+    - x: float32
+    - y: float32
+    - result: float32
+    type_2ary_float64: &2ary_float64
+    - x: float64
+    - y: float32
+    - result: float64
+    
+entries:
+
+- id: 544
+  name: pi_float32
+  type:
+  - result: float32
+  semantics: &pi |
+    Returns the value of :math:`\pi`.
+
+- id: 545
+  name: pi_float64
+  type:
+  - result: float64
+  semantics: *pi
+
+- id: 576
+  name: square_root_float32
+  type: *1ary_float32
+  semantics: &square_root |
+    Calculates the square root of ``x``, i.e. :math:`\sqrt{x}`.
+
+- id: 577
+  name: square_root_float64
+  type: *1ary_float64
+  semantics: *square_root
+
+- id: 608
+  name: natural_logarithm_float32
+  type: *1ary_float32
+  semantics: &ln |
+    Calculates the natural logarithm of ``x``, i.e. :math:`\ln{x}`.
+
+- id: 609
+  name: natural_logarithm_float64
+  type: *1ary_float64
+  semantics: *ln
+
+- id: 640
+  name: e_to_the_x_float32
+  type: *1ary_float32
+  semantics: &e_x |
+    Calculates the exponential function of ``x``, i.e. :math:`e^x`.
+
+- id: 641
+  name: e_to_the_x_float64
+  type: *1ary_float64
+  semantics: *e_x
+
+- id: 672
+  name: two_to_the_x_float32
+  type: *1ary_float32
+  semantics: &2_x |
+    Calculates the value of 2 raised to the power of ``x``, i.e. :math:`2^x`.
+
+- id: 673
+  name: two_to_the_x_float64
+  type: *1ary_float64
+  semantics: *2_x
+
+- id: 704
+  name: x_to_the_y_float32
+  type: *2ary_float32
+  semantics: &x_y |
+    Calculates the value of ``x`` raised to the power of ``y``, i.e. :math:`x^y`.
+
+- id: 705
+  name: x_to_the_y_float64
+  type: *2ary_float64
+  semantics: *x_y
+
+- id: 736
+  name: logarithm_base_x_float32
+  type: *2ary_float32
+  semantics: &log_x_y |
+    Calculates the base-``x`` logarithm of ``y``, i.e. :math:`\log_x{y}`.
+
+- id: 737
+  name: logarithm_base_y_float64
+  type: *2ary_float64
+  semantics: *log_x_y

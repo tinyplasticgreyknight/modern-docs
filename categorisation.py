@@ -160,13 +160,19 @@ class Builtin(Leaf):
 			stream.write("* **Result:** ``%s``\n" % str(self.type.result))
 
 class Category(object):
-	def __init__(self, title, name=None, toc_depth=1, is_root=False):
+	def __init__(self, title, name=None, toc_depth=1, is_root=False, use_intro=None):
 		self.title = title
 		self.name = name
 		self.toc_depth = toc_depth
 		self.is_root = is_root
 		self.children = []
 		self.leaves = []
+		self.intro_text = None
+		self.contents = None
+		self.child_ordering = None
+		if use_intro is not None:
+			with io.open(use_intro, 'r') as f:
+				self.intro_text = f.read()
 
 	def add_child(self, child):
 		self.children.append(child)
@@ -192,3 +198,29 @@ class Category(object):
 		ensure_dir_exists(directory)
 		with io.open(os.path.join(directory, "index.rst"), 'w') as f:
 			write_index(f, self)
+
+	def ordered_children(self):
+		if self.child_ordering is None: return self.children.copy()
+		ordered = []
+		not_seen = set(self.children)
+		by_name = {}
+		for child in self.children:
+			by_name[child.name] = child
+
+		for name in self.child_ordering:
+			child = by_name[name]
+			not_seen.discard(child)
+			ordered.append(child)
+
+		if len(not_seen) > 0:
+			raise KeyError("some children were not included in the ordering: %s" % [x.name for x in not_seen])
+
+		return ordered
+
+class RawChunk(Category):
+	def __init__(self, filename, name):
+		Category.__init__(self, name, name)
+		self.name = name
+		self.title = name
+		with io.open(filename, 'r') as f:
+			self.contents = f.read()

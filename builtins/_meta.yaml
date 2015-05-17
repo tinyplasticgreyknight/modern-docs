@@ -1,0 +1,18 @@
+title: Builtin Identifiers
+order:
+- flow-control
+- logic
+- equality
+- ordering
+- arithmetic
+- exponential
+- trigonometric
+- rounding
+- boundary
+- bitwise
+- large-object
+- sigma
+- named
+- maybe
+- type-manipulation
+- cast
