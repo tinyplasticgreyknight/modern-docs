@@ -1,0 +1,37 @@
+title: Type-manipulation Builtins
+entries:
+
+- id: 2528
+  name: get_maybe_type_content_type
+  type:
+  - a: universe 0
+  - result: {maybe: universe 0}
+
+- id: 2080
+  name: get_function_type_parameter
+  type:
+  - a: universe 0
+  - result: {maybe: universe 0}
+
+- id: 2112
+  name: get_function_type_result
+  type:
+  - a: universe 0
+  - result: universe 0
+  - result: {maybe: universe 0}
+
+- id: 2144
+  name: get_sigma_type_field_type
+  type:
+  - a: universe 0
+  - result: {maybe: universe 0}
+
+- id: 2176
+  name: get_sigma_type_successor
+  type:
+  - a: universe 0
+  - b: universe 0
+  - result:
+      maybe:
+      - _1: b
+      - _2: universe 0

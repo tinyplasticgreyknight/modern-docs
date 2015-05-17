@@ -33,6 +33,20 @@ def verify_primitive_type(supposed, refs):
 		return True
 	raise TypeError("did not recognise %s as a primitive type" % repr(supposed))
 
+def mktype(ntype, refs):
+	if type(ntype) == str:
+		verify_primitive_type(ntype, refs)
+		return ntype
+	elif type(ntype) == dict:
+		if "maybe" in ntype:
+			return MaybeType(ntype['maybe'], refs)
+		else:
+			raise TypeError("didn't recognise monadic type %s" % repr(ntype))
+	elif type(ntype) == list:
+		return TypeWithNames(ntype, refs)
+	else:
+		raise TypeError("didn't recognise type %s" % repr(ntype))
+
 class Leaf(object):
 	def __init__(self, ident, name, semantics=None):
 		self.ident = ident
@@ -65,18 +79,7 @@ class Leaf(object):
 class NamedParam(object):
 	def __init__(self, name, ntype, refs=[]):
 		self.name = name
-		if type(ntype) == str:
-			verify_primitive_type(ntype, refs)
-			self.type = ntype
-		elif type(ntype) == dict:
-			if "maybe" in ntype:
-				self.type = MaybeType(ntype['maybe'])
-			else:
-				raise TypeError("didn't recognise monadic type %s" % repr(ntype))
-		elif type(ntype) == list:
-			self.type = TypeWithNames(ntype, refs)
-		else:
-			raise TypeError("didn't recognise type %s" % repr(ntype))
+		self.type = mktype(ntype, refs)
 
 class TypeWithNames(object):
 	def __init__(self, yaml, refs=[]):
@@ -96,14 +99,24 @@ class TypeWithNames(object):
 				self.params.append(param)
 
 	def __str__(self):
-		return " -> ".join([str(x.type) for x in self.terms])
+		vterms = []
+		for term in self.terms:
+			ttyp = term.type
+			if (type(ttyp) == str) or (type(ttyp) == MaybeType):
+				vterms.append(str(ttyp))
+			else:
+				vterms.append("(%s)" % str(ttyp))
+		return " -> ".join(vterms)
 
 class MaybeType(object):
-	def __init__(self, inner_type):
-		self.inner_type = inner_type
+	def __init__(self, inner_type, refs):
+		self.inner_type = mktype(inner_type, refs)
 
 	def __str__(self):
-		return "maybe %s" % str(self.inner_type)
+		if type(self.inner_type) == str:
+			return "maybe %s" % self.inner_type
+		else:
+			return "maybe (%s)" % str(self.inner_type)
 
 class Builtin(Leaf):
 	def __init__(self, type=None, *args, **kwargs):
