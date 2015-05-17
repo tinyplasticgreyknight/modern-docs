@@ -1,2 +1,6 @@
 build
+rstsource
 *~
+*.pyc
+__pycache__
+

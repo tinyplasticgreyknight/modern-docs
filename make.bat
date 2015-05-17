@@ -5,9 +5,11 @@ REM Command file for Sphinx documentation
 if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
+set PYTHONEXE=python
+set SOURCEDIR=rstsource
 set BUILDDIR=build
-set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% source
-set I18NSPHINXOPTS=%SPHINXOPTS% source
+set ALLSPHINXOPTS=-d %BUILDDIR%/doctrees %SPHINXOPTS% %SOURCEDIR%
+set I18NSPHINXOPTS=%SPHINXOPTS% %SOURCEDIR%
 if NOT "%PAPER%" == "" (
 	set ALLSPHINXOPTS=-D latex_paper_size=%PAPER% %ALLSPHINXOPTS%
 	set I18NSPHINXOPTS=-D latex_paper_size=%PAPER% %I18NSPHINXOPTS%
@@ -59,6 +61,9 @@ if errorlevel 9009 (
 	echo.http://sphinx-doc.org/
 	exit /b 1
 )
+
+echo.Rebuilding intermdiate ReST sources...
+%PYTHONEXE% make-rest.py %SOURCEDIR%
 
 if "%1" == "html" (
 	%SPHINXBUILD% -b html %ALLSPHINXOPTS% %BUILDDIR%/html

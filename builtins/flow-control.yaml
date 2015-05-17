@@ -1,0 +1,21 @@
+title: Flow-control Builtins
+entries:
+
+- id: 0
+  name: if_bool
+  type:
+  - a: universe 0
+  - predicate: bool
+  - consequent: a
+  - alternative: a
+  - result: a
+  semantics: |
+      This builtin gives typical conditional behaviour, returning ``consequent`` if the predicate was true, or ``alternative`` otherwise.
+
+- id: 96
+  name: not_bool
+  type:
+  - input: bool
+  - result: bool
+  semantics: |
+    This is the basic logical-NOT operation.  It returns true if its input was false, and vice-versa.
