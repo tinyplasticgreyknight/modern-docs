@@ -1,4 +1,8 @@
 title: Equality Builtins
+common:
+  semantics_equality: &equality
+    Returns true if the two comparands are considered equal to each other, and false otherwise.
+
 entries:
 
 - id: 128
@@ -7,8 +11,7 @@ entries:
   - comparand1: bool
   - comparand2: bool
   - result: bool
-  semantics: |
-    Performs equality testing on ``bool`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 129
   name: equal_to_int8
@@ -16,8 +19,7 @@ entries:
   - comparand1: int8
   - comparand2: int8
   - result: bool
-  semantics: |
-    Performs equality testing on ``int8`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 130
   name: equal_to_int16
@@ -25,8 +27,7 @@ entries:
   - comparand1: int16
   - comparand2: int16
   - result: bool
-  semantics: |
-    Performs equality testing on ``int16`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 131
   name: equal_to_int32
@@ -34,8 +35,7 @@ entries:
   - comparand1: int32
   - comparand2: int32
   - result: bool
-  semantics: |
-    Performs equality testing on ``int32`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 132
   name: equal_to_int64
@@ -43,8 +43,7 @@ entries:
   - comparand1: int64
   - comparand2: int64
   - result: bool
-  semantics: |
-    Performs equality testing on ``int64`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 133
   name: equal_to_nat8
@@ -52,8 +51,7 @@ entries:
   - comparand1: nat8
   - comparand2: nat8
   - result: bool
-  semantics: |
-    Performs equality testing on ``nat8`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 134
   name: equal_to_nat16
@@ -61,8 +59,7 @@ entries:
   - comparand1: nat16
   - comparand2: nat16
   - result: bool
-  semantics: |
-    Performs equality testing on ``nat16`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 135
   name: equal_to_nat32
@@ -70,8 +67,7 @@ entries:
   - comparand1: nat32
   - comparand2: nat32
   - result: bool
-  semantics: |
-    Performs equality testing on ``nat32`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 136
   name: equal_to_nat64
@@ -79,8 +75,7 @@ entries:
   - comparand1: nat64
   - comparand2: nat64
   - result: bool
-  semantics: |
-    Performs equality testing on ``nat64`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 137
   name: equal_to_float32
@@ -88,8 +83,7 @@ entries:
   - comparand1: float32
   - comparand2: float32
   - result: bool
-  semantics: |
-    Performs equality testing on ``float32`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 138
   name: equal_to_float64
@@ -97,8 +91,7 @@ entries:
   - comparand1: float64
   - comparand2: float64
   - result: bool
-  semantics: |
-    Performs equality testing on ``float64`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 139
   name: equal_to_name
@@ -106,8 +99,7 @@ entries:
   - comparand1: name
   - comparand2: name
   - result: bool
-  semantics: |
-    Performs equality testing on ``name`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 140
   name: equal_to_utf8
@@ -115,8 +107,7 @@ entries:
   - comparand1: utf8
   - comparand2: utf8
   - result: bool
-  semantics: |
-    Performs equality testing on ``utf8`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 150
   name: equal_to_blob
@@ -124,8 +115,7 @@ entries:
   - comparand1: blob
   - comparand2: blob
   - result: bool
-  semantics: |
-    Performs equality testing on ``blob`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
 
 - id: 151
   name: equal_to_ordering
@@ -133,5 +123,4 @@ entries:
   - comparand1: ordering
   - comparand2: ordering
   - result: bool
-  semantics: |
-    Performs equality testing on ``ordering`` values.  Returns true if the two comparands are considered equal to each other.
+  semantics: *equality
