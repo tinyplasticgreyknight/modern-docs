@@ -50,7 +50,7 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/*
-	find $(SOURCEDIR)
+	rm -rf $(SOURCEDIR)/*
 
 rest:
 	$(PYTHON) make-rest.py $(SOURCEDIR)
