@@ -34,5 +34,5 @@ def gather_yaml_node(yaml):
 	return leaf
 
 def gather_yaml_builtin(yaml):
-	leaf = Builtin(ident=yaml['id'], name=yaml['name'], semantics=yaml.get('semantics'), type=yaml.get('type'))
+	leaf = Builtin(ident=yaml['id'], name=yaml['name'], semantics=yaml.get('semantics'), ntype=yaml.get('type'))
 	return leaf

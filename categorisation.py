@@ -142,9 +142,11 @@ class SigmaType(ApType2ary):
 AP_TYPES['sigma'] = SigmaType
 
 class Builtin(Leaf):
-	def __init__(self, type=None, *args, **kwargs):
+	def __init__(self, ntype=None, *args, **kwargs):
 		Leaf.__init__(self, *args, **kwargs)
-		self.type = TypeWithNames(type)
+		self.type = None
+		if ntype is not None:
+			self.type = TypeWithNames(ntype)
 
 	def write_entry(self, stream):
 		if self.type is None:

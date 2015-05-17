@@ -15,7 +15,7 @@ def main(source_dir):
 	shutil.copy("sphinx-conf.py", os.path.join(source_dir, "conf.py"))
 
 def gather_docs():
-	root = Category(title="Modern, the data/schema format", toc_depth=2)
+	root = Category(title="Modern, the data/schema format", toc_depth=2, is_root=True)
 	root.add_child(gather_directory("Builtin Identifiers", ".", "builtins", gather_yaml_builtin))
 	root.add_child(gather_directory("Nodes", ".", "nodes", gather_yaml_node))
 	return root

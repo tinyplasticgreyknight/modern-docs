@@ -27,7 +27,7 @@ def write_index(stream, category):
 		write_indices_and_tables(stream)
 
 def write_indices_and_tables(stream):
-	f.write("\n")
+	stream.write("\n")
 	write_rest_header(stream, "Indices and tables", "=")
 	stream.write("* :ref:`genindex`\n")
 	stream.write("* :ref:`search`\n")

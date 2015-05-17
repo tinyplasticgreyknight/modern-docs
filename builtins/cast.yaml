@@ -4,8 +4,819 @@ entries:
 - id: 10240
   name: cast_int8_int16
   type:
-  - input_value: int8
+  - input: int8
   - result: {maybe: int16}
   semantics: |
-    Cast an ``int8`` value into the corresponding ``int16`` value.
-    This is always a possible cast, so ``result`` will always have its ``maybe`` populated.
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10241
+  name: cast_int8_int32
+  type:
+  - input: int8
+  - result: {maybe: int32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10242
+  name: cast_int8_int64
+  type:
+  - input: int8
+  - result: {maybe: int64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10243
+  name: cast_int8_nat8
+  type:
+  - input: int8
+  - result: {maybe: nat8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10244
+  name: cast_int8_nat16
+  type:
+  - input: int8
+  - result: {maybe: nat16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10245
+  name: cast_int8_nat32
+  type:
+  - input: int8
+  - result: {maybe: nat32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10246
+  name: cast_int8_nat64
+  type:
+  - input: int8
+  - result: {maybe: nat64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10247
+  name: cast_int16_int8
+  type:
+  - input: int16
+  - result: {maybe: int8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10248
+  name: cast_int16_int32
+  type:
+  - input: int16
+  - result: {maybe: int32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10249
+  name: cast_int16_int64
+  type:
+  - input: int16
+  - result: {maybe: int64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10250
+  name: cast_int16_nat8
+  type:
+  - input: int16
+  - result: {maybe: nat8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10251
+  name: cast_int16_nat16
+  type:
+  - input: int16
+  - result: {maybe: nat16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10252
+  name: cast_int16_nat32
+  type:
+  - input: int16
+  - result: {maybe: nat32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10253
+  name: cast_int16_nat64
+  type:
+  - input: int16
+  - result: {maybe: nat64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10254
+  name: cast_int32_int8
+  type:
+  - input: int32
+  - result: {maybe: int8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10255
+  name: cast_int32_int16
+  type:
+  - input: int32
+  - result: {maybe: int16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10256
+  name: cast_int32_int64
+  type:
+  - input: int32
+  - result: {maybe: int64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10257
+  name: cast_int32_nat8
+  type:
+  - input: int32
+  - result: {maybe: nat8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10258
+  name: cast_int32_nat16
+  type:
+  - input: int32
+  - result: {maybe: nat16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10259
+  name: cast_int32_nat32
+  type:
+  - input: int32
+  - result: {maybe: nat32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10260
+  name: cast_int32_nat64
+  type:
+  - input: int32
+  - result: {maybe: nat64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10261
+  name: cast_int64_int8
+  type:
+  - input: int64
+  - result: {maybe: int8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10262
+  name: cast_int64_int16
+  type:
+  - input: int64
+  - result: {maybe: int16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10263
+  name: cast_int64_int32
+  type:
+  - input: int64
+  - result: {maybe: int32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10264
+  name: cast_int64_nat8
+  type:
+  - input: int64
+  - result: {maybe: nat8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10265
+  name: cast_int64_nat16
+  type:
+  - input: int64
+  - result: {maybe: nat16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10266
+  name: cast_int64_nat32
+  type:
+  - input: int64
+  - result: {maybe: nat32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10267
+  name: cast_int64_nat64
+  type:
+  - input: int64
+  - result: {maybe: nat64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10268
+  name: cast_nat8_int8
+  type:
+  - input: nat8
+  - result: {maybe: int8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10269
+  name: cast_nat8_int16
+  type:
+  - input: nat8
+  - result: {maybe: int16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10270
+  name: cast_nat8_int32
+  type:
+  - input: nat8
+  - result: {maybe: int32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10271
+  name: cast_nat8_int64
+  type:
+  - input: nat8
+  - result: {maybe: int64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10272
+  name: cast_nat8_nat16
+  type:
+  - input: nat8
+  - result: {maybe: nat16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10273
+  name: cast_nat8_nat32
+  type:
+  - input: nat8
+  - result: {maybe: nat32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10274
+  name: cast_nat8_nat64
+  type:
+  - input: nat8
+  - result: {maybe: nat64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10275
+  name: cast_nat16_int8
+  type:
+  - input: nat16
+  - result: {maybe: int8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10276
+  name: cast_nat16_int16
+  type:
+  - input: nat16
+  - result: {maybe: int16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10277
+  name: cast_nat16_int32
+  type:
+  - input: nat16
+  - result: {maybe: int32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10278
+  name: cast_nat16_int64
+  type:
+  - input: nat16
+  - result: {maybe: int64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10279
+  name: cast_nat16_nat8
+  type:
+  - input: nat16
+  - result: {maybe: nat8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10280
+  name: cast_nat16_nat32
+  type:
+  - input: nat16
+  - result: {maybe: nat32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10281
+  name: cast_nat16_nat64
+  type:
+  - input: nat16
+  - result: {maybe: nat64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10282
+  name: cast_nat32_int8
+  type:
+  - input: nat32
+  - result: {maybe: int8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10283
+  name: cast_nat32_int16
+  type:
+  - input: nat32
+  - result: {maybe: int16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10284
+  name: cast_nat32_int32
+  type:
+  - input: nat32
+  - result: {maybe: int32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10285
+  name: cast_nat32_int64
+  type:
+  - input: nat32
+  - result: {maybe: int64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10286
+  name: cast_nat32_nat8
+  type:
+  - input: nat32
+  - result: {maybe: nat8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10287
+  name: cast_nat32_nat16
+  type:
+  - input: nat32
+  - result: {maybe: nat16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10288
+  name: cast_nat32_nat64
+  type:
+  - input: nat32
+  - result: {maybe: nat64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    This is always a possible cast, so the resulting ``maybe`` will always be populated.
+
+- id: 10289
+  name: cast_nat64_int8
+  type:
+  - input: nat64
+  - result: {maybe: int8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10290
+  name: cast_nat64_int16
+  type:
+  - input: nat64
+  - result: {maybe: int16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10291
+  name: cast_nat64_int32
+  type:
+  - input: nat64
+  - result: {maybe: int32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10292
+  name: cast_nat64_int64
+  type:
+  - input: nat64
+  - result: {maybe: int64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10293
+  name: cast_nat64_nat8
+  type:
+  - input: nat64
+  - result: {maybe: nat8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10294
+  name: cast_nat64_nat16
+  type:
+  - input: nat64
+  - result: {maybe: nat16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10295
+  name: cast_nat64_nat32
+  type:
+  - input: nat64
+  - result: {maybe: nat32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10296
+  name: cast_utf8_blob
+  type:
+  - input: utf8
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10297
+  name: cast_blob_utf8
+  type:
+  - input: blob
+  - result: {maybe: utf8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10298
+  name: cast_name_blob
+  type:
+  - input: name
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10299
+  name: cast_blob_name
+  type:
+  - input: blob
+  - result: {maybe: name}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10300
+  name: cast_float32_float64
+  type:
+  - input: float32
+  - result: {maybe: float64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10301
+  name: cast_float64_float32
+  type:
+  - input: float64
+  - result: {maybe: float32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10302
+  name: cast_blob_int8
+  type:
+  - input: blob
+  - result: {maybe: int8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10303
+  name: cast_blob_int16
+  type:
+  - input: blob
+  - result: {maybe: int16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10304
+  name: cast_blob_int32
+  type:
+  - input: blob
+  - result: {maybe: int32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10305
+  name: cast_blob_int64
+  type:
+  - input: blob
+  - result: {maybe: int64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10306
+  name: cast_blob_nat8
+  type:
+  - input: blob
+  - result: {maybe: nat8}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10307
+  name: cast_blob_nat16
+  type:
+  - input: blob
+  - result: {maybe: nat16}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10308
+  name: cast_blob_nat32
+  type:
+  - input: blob
+  - result: {maybe: nat32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10309
+  name: cast_blob_nat64
+  type:
+  - input: blob
+  - result: {maybe: nat64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10310
+  name: cast_blob_float32
+  type:
+  - input: blob
+  - result: {maybe: float32}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10311
+  name: cast_blob_float64
+  type:
+  - input: blob
+  - result: {maybe: float64}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10312
+  name: cast_int8_blob
+  type:
+  - input: int8
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10313
+  name: cast_int16_blob
+  type:
+  - input: int16
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10314
+  name: cast_int32_blob
+  type:
+  - input: int32
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10315
+  name: cast_int64_blob
+  type:
+  - input: int64
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10316
+  name: cast_nat8_blob
+  type:
+  - input: nat8
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10317
+  name: cast_nat16_blob
+  type:
+  - input: nat16
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10318
+  name: cast_nat32_blob
+  type:
+  - input: nat32
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10319
+  name: cast_nat64_blob
+  type:
+  - input: nat64
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10320
+  name: cast_float32_blob
+  type:
+  - input: float32
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
+
+- id: 10321
+  name: cast_float64_blob
+  type:
+  - input: float64
+  - result: {maybe: blob}
+  semantics: |
+    Returns the same numeric value as ``input``, but fitted into a different type.
+
+    If the conversion is not possible for this value, the resulting ``maybe`` is empty.
