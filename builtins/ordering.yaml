@@ -1,0 +1,92 @@
+title: Ordering Builtins
+entries:
+
+- id: 160
+  name: compare_int8
+  type:
+  - comparand1: int8
+  - comparand2: int8
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 161
+  name: compare_int16
+  type:
+  - comparand1: int16
+  - comparand2: int16
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 162
+  name: compare_int32
+  type:
+  - comparand1: int32
+  - comparand2: int32
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 163
+  name: compare_int64
+  type:
+  - comparand1: int64
+  - comparand2: int64
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 164
+  name: compare_nat8
+  type:
+  - comparand1: nat8
+  - comparand2: nat8
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 165
+  name: compare_nat16
+  type:
+  - comparand1: nat16
+  - comparand2: nat16
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 166
+  name: compare_nat32
+  type:
+  - comparand1: nat32
+  - comparand2: nat32
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 167
+  name: compare_nat64
+  type:
+  - comparand1: nat64
+  - comparand2: nat64
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 168
+  name: compare_float32
+  type:
+  - comparand1: float32
+  - comparand2: float32
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+
+- id: 169
+  name: compare_float64
+  type:
+  - comparand1: float64
+  - comparand2: float64
+  - result: ordering
+  semantics: |
+    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
