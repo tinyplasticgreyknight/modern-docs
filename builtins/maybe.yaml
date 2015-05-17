@@ -1,0 +1,32 @@
+title: Maybe-value Builtins
+entries:
+
+- id: 2560
+  name: maybe_is_just
+  type:
+  - a: {universe: 0}
+  - thing: {maybe: a}
+  - result: bool
+  semantics: |
+    Returns true if the supplied ``thing`` has its ``maybe`` populated with a value, or false otherwise.
+
+- id: 2592
+  name: fmap_maybe
+  type:
+  - a: {universe: 0}
+  - b: {universe: 0}
+  - subject: {maybe: a}
+  - func: [{_: a}, {_: b}]
+  - result: {maybe: b}
+  semantics: |
+    If ``subject`` is populated with some value ``x``, return a ``maybe`` populated with the result of calling ``func x``.  Otherwise, return an empty ``maybe``.
+
+- id: 2624
+  name: from_maybe
+  type:
+  - a: {universe: 0}
+  - default: a
+  - subject: {maybe: a}
+  - result: a
+  semantics: |
+    If ``subject`` is populated with some value ``x``, return ``x``.  Otherwise, return ``default``.
