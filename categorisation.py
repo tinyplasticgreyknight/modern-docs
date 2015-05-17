@@ -152,13 +152,12 @@ class Builtin(Leaf):
 		if self.type is None:
 			return
 		stream.write("* **Type:** ``%s``\n" % str(self.type))
-		stream.write("* **Parameters:**\n\n")
-		if len(self.type.terms) == 0:
-			return
-		for param in self.type.params:
-			stream.write("  - *%s* : ``%s``\n" % (param.name, str(param.type)))
-		stream.write("\n")
-		stream.write("* **Result:** ``%s``\n" % str(self.type.result))
+		if len(self.type.params) > 0:
+			stream.write("* **Parameters:**\n\n")
+			for param in self.type.params:
+				stream.write("  - *%s* : ``%s``\n" % (param.name, str(param.type)))
+				stream.write("\n")
+			stream.write("* **Result:** ``%s``\n" % str(self.type.result))
 
 class Category(object):
 	def __init__(self, title, name=None, toc_depth=1, is_root=False):

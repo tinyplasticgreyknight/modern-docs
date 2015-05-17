@@ -1,0 +1,521 @@
+title: Arithmetic Builtins
+common:
+  semantics_addition: &addition |
+    Returns the sum of the two operands.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_subtraction: &subtraction |
+    Returns the result of subtracting ``operand2`` from ``operand1``.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_multiplication: &multiplication |
+    Returns the result of multiplying ``operand1`` by ``operand2``.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_division_towards_zero: &division_towards_zero |
+    Returns the result of dividing ``operand1`` by ``operand2``, rounding the result towards zero.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_division_towards_neg_inf: &division_towards_neg_inf |
+    Returns the result of dividing ``operand1`` by ``operand2``, rounding the result towards negative infinity.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_division: &division |
+    Returns the result of dividing ``operand1`` by ``operand2``.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_modulus_towards_zero: &modulus_towards_zero |
+    Returns the remainder of ``operand1`` divided by ``operand2``, rounding the result towards zero.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_modulus_towards_neg_inf: &modulus_towards_neg_inf |
+    Returns the remainder of ``operand1`` divided by ``operand2``, rounding the result towards negative infinity.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_negation: &negation |
+    Returns a value with the same magnitude as ``operand``, but with its sign reversed.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_absolute_value: &absolute_value |
+    Returns the magnitude of ``operand``.
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  semantics_sign: &sign |
+    Returns:
+    
+    * ``-1`` if ``operand`` was negative
+    * ``0`` if ``operand`` was zero
+    * ``+1`` if ``operand`` was positive
+
+    If the result cannot be fitted into the return type, the resulting ``maybe`` is empty.
+
+  type_2ary_int8: &2ary_int8
+  - operand1: int8
+  - operand2: int8
+  - result: {maybe: int8}
+  type_2ary_int16: &2ary_int16
+  - operand1: int16
+  - operand2: int16
+  - result: {maybe: int16}
+  type_2ary_int32: &2ary_int32
+  - operand1: int32
+  - operand2: int32
+  - result: {maybe: int32}
+  type_2ary_int64: &2ary_int64
+  - operand1: int64
+  - operand2: int64
+  - result: {maybe: int64}
+  type_2ary_nat8: &2ary_nat8
+  - operand1: nat8
+  - operand2: nat8
+  - result: {maybe: nat8}
+  type_2ary_nat16: &2ary_nat16
+  - operand1: nat16
+  - operand2: nat16
+  - result: {maybe: nat16}
+  type_2ary_nat32: &2ary_nat32
+  - operand1: nat32
+  - operand2: nat32
+  - result: {maybe: nat32}
+  type_2ary_nat64: &2ary_nat64
+  - operand1: nat64
+  - operand2: nat64
+  - result: {maybe: nat64}
+  type_2ary_float32: &2ary_float32
+  - operand1: float32
+  - operand2: float32
+  - result: {maybe: float32}
+  type_2ary_float64: &2ary_float64
+  - operand1: float64
+  - operand2: float64
+  - result: {maybe: float64}
+  type_1ary_int8: &1ary_int8
+  - operand: int8
+  - result: {maybe: int8}
+  type_1ary_int16: &1ary_int16
+  - operand: int16
+  - result: {maybe: int16}
+  type_1ary_int32: &1ary_int32
+  - operand: int32
+  - result: {maybe: int32}
+  type_1ary_int64: &1ary_int64
+  - operand: int64
+  - result: {maybe: int64}
+  type_1ary_nat8: &1ary_nat8
+  - operand: nat8
+  - result: {maybe: nat8}
+  type_1ary_nat16: &1ary_nat16
+  - operand: nat16
+  - result: {maybe: nat16}
+  type_1ary_nat32: &1ary_nat32
+  - operand: nat32
+  - result: {maybe: nat32}
+  type_1ary_nat64: &1ary_nat64
+  - operand: nat64
+  - result: {maybe: nat64}
+  type_1ary_float32: &1ary_float32
+  - operand: float32
+  - result: {maybe: float32}
+  type_1ary_float64: &1ary_float64
+  - operand: float64
+  - result: {maybe: float64}
+  type_1ary_def_int8: &1ary_def_int8
+  - operand: int8
+  - result: int8
+  type_1ary_def_int16: &1ary_def_int16
+  - operand: int16
+  - result: int16
+  type_1ary_def_int32: &1ary_def_int32
+  - operand: int32
+  - result: int32
+  type_1ary_def_int64: &1ary_def_int64
+  - operand: int64
+  - result: int64
+  type_1ary_def_float32: &1ary_def_float32
+  - operand: float32
+  - result: float32
+  type_1ary_def_float64: &1ary_def_float64
+  - operand: float64
+  - result: float64
+
+entries:
+
+- id: 192
+  name: add_int8
+  type: *2ary_int8
+  semantics: *addition
+
+- id: 193
+  name: add_int16
+  type: *2ary_int16
+  semantics: *addition
+
+- id: 194
+  name: add_int32
+  type: *2ary_int32
+  semantics: *addition
+
+- id: 195
+  name: add_int64
+  type: *2ary_int64
+  semantics: *addition
+
+- id: 196
+  name: add_nat8
+  type: *2ary_nat8
+  semantics: *addition
+
+- id: 197
+  name: add_nat16
+  type: *2ary_nat16
+  semantics: *addition
+
+- id: 198
+  name: add_nat32
+  type: *2ary_nat32
+  semantics: *addition
+
+- id: 199
+  name: add_nat64
+  type: *2ary_nat64
+  semantics: *addition
+
+- id: 200
+  name: add_float32
+  type: *2ary_float32
+  semantics: *addition
+
+- id: 201
+  name: add_float64
+  type: *2ary_float64
+  semantics: *addition
+
+- id: 224
+  name: subtract_int8
+  type: *2ary_int8
+  semantics: *subtraction
+
+- id: 225
+  name: subtract_int16
+  type: *2ary_int16
+  semantics: *subtraction
+
+- id: 226
+  name: subtract_int32
+  type: *2ary_int32
+  semantics: *subtraction
+
+- id: 227
+  name: subtract_int64
+  type: *2ary_int64
+  semantics: *subtraction
+
+- id: 228
+  name: subtract_nat8
+  type: *2ary_nat8
+  semantics: *subtraction
+
+- id: 229
+  name: subtract_nat16
+  type: *2ary_nat16
+  semantics: *subtraction
+
+- id: 230
+  name: subtract_nat32
+  type: *2ary_nat32
+  semantics: *subtraction
+
+- id: 231
+  name: subtract_nat64
+  type: *2ary_nat64
+  semantics: *subtraction
+
+- id: 232
+  name: subtract_float32
+  type: *2ary_float32
+  semantics: *subtraction
+
+- id: 233
+  name: subtract_float64
+  type: *2ary_float64
+  semantics: *subtraction
+
+- id: 256
+  name: multiply_int8
+  type: *2ary_int8
+  semantics: *multiplication
+
+- id: 257
+  name: multiply_int16
+  type: *2ary_int16
+  semantics: *multiplication
+
+- id: 258
+  name: multiply_int32
+  type: *2ary_int32
+  semantics: *multiplication
+
+- id: 259
+  name: multiply_int64
+  type: *2ary_int64
+  semantics: *multiplication
+
+- id: 260
+  name: multiply_nat8
+  type: *2ary_nat8
+  semantics: *multiplication
+
+- id: 261
+  name: multiply_nat16
+  type: *2ary_nat16
+  semantics: *multiplication
+
+- id: 262
+  name: multiply_nat32
+  type: *2ary_nat32
+  semantics: *multiplication
+
+- id: 263
+  name: multiply_nat64
+  type: *2ary_nat64
+  semantics: *multiplication
+
+- id: 264
+  name: multiply_float32
+  type: *2ary_float32
+  semantics: *multiplication
+
+- id: 265
+  name: multiply_float64
+  type: *2ary_float64
+  semantics: *multiplication
+
+- id: 288
+  name: divide_towards_zero_int8
+  type: *2ary_int8
+  semantics: *division_towards_zero
+
+- id: 289
+  name: divide_towards_zero_int16
+  type: *2ary_int16
+  semantics: *division_towards_zero
+
+- id: 290
+  name: divide_towards_zero_int32
+  type: *2ary_int32
+  semantics: *division_towards_zero
+
+- id: 291
+  name: divide_towards_zero_int64
+  type: *2ary_int64
+  semantics: *division_towards_zero
+
+- id: 292
+  name: divide_towards_zero_nat8
+  type: *2ary_nat8
+  semantics: *division_towards_zero
+
+- id: 293
+  name: divide_towards_zero_nat16
+  type: *2ary_nat16
+  semantics: *division_towards_zero
+
+- id: 294
+  name: divide_towards_zero_nat32
+  type: *2ary_nat32
+  semantics: *division_towards_zero
+
+- id: 295
+  name: divide_towards_zero_nat64
+  type: *2ary_nat64
+  semantics: *division_towards_zero
+
+- id: 320
+  name: divide_towards_negative_infinity_int8
+  type: *2ary_int8
+  semantics: *division_towards_neg_inf
+
+- id: 321
+  name: divide_towards_negative_infinity_int16
+  type: *2ary_int16
+  semantics: *division_towards_neg_inf
+
+- id: 322
+  name: divide_towards_negative_infinity_int32
+  type: *2ary_int32
+  semantics: *division_towards_neg_inf
+
+- id: 323
+  name: divide_towards_negative_infinity_int64
+  type: *2ary_int64
+  semantics: *division_towards_neg_inf
+
+- id: 352
+  name: divide_float32
+  type: *2ary_float32
+  semantics: *division
+
+- id: 353
+  name: divide_float64
+  type: *2ary_float64
+  semantics: *division
+
+- id: 384
+  name: modulus_towards_zero_int8
+  type: *2ary_int8
+  semantics: *modulus_towards_zero
+
+- id: 385
+  name: modulus_towards_zero_int16
+  type: *2ary_int16
+  semantics: *modulus_towards_zero
+
+- id: 386
+  name: modulus_towards_zero_int32
+  type: *2ary_int32
+  semantics: *modulus_towards_zero
+
+- id: 387
+  name: modulus_towards_zero_int64
+  type: *2ary_int64
+  semantics: *modulus_towards_zero
+
+- id: 388
+  name: modulus_towards_zero_nat8
+  type: *2ary_nat8
+  semantics: *modulus_towards_zero
+
+- id: 389
+  name: modulus_towards_zero_nat16
+  type: *2ary_nat16
+  semantics: *modulus_towards_zero
+
+- id: 390
+  name: modulus_towards_zero_nat32
+  type: *2ary_nat32
+  semantics: *modulus_towards_zero
+
+- id: 391
+  name: modulus_towards_zero_nat64
+  type: *2ary_nat64
+  semantics: *modulus_towards_zero
+
+- id: 416
+  name: modulus_towards_negative_infinity_int8
+  type: *2ary_int8
+  semantics: *modulus_towards_neg_inf
+
+- id: 417
+  name: modulus_towards_negative_infinity_int16
+  type: *2ary_int16
+  semantics: *modulus_towards_neg_inf
+
+- id: 418
+  name: modulus_towards_negative_infinity_int32
+  type: *2ary_int32
+  semantics: *modulus_towards_neg_inf
+
+- id: 419
+  name: modulus_towards_negative_infinity_int64
+  type: *2ary_int64
+  semantics: *modulus_towards_neg_inf
+
+- id: 448
+  name: negate_int8
+  type: *1ary_int8
+  semantics: *negation
+
+- id: 449
+  name: negate_int16
+  type: *1ary_int16
+  semantics: *negation
+
+- id: 450
+  name: negate_int32
+  type: *1ary_int32
+  semantics: *negation
+
+- id: 451
+  name: negate_int64
+  type: *1ary_int64
+  semantics: *negation
+
+- id: 452
+  name: negate_float32
+  type: *1ary_float32
+  semantics: *negation
+
+- id: 453
+  name: negate_float64
+  type: *1ary_float64
+  semantics: *negation
+
+- id: 480
+  name: absolute_value_int8
+  type: *1ary_int8
+  semantics: *absolute_value
+
+- id: 481
+  name: absolute_value_int16
+  type: *1ary_int16
+  semantics: *absolute_value
+
+- id: 482
+  name: absolute_value_int32
+  type: *1ary_int32
+  semantics: *absolute_value
+
+- id: 483
+  name: absolute_value_int64
+  type: *1ary_int64
+  semantics: *absolute_value
+
+- id: 484
+  name: absolute_value_float32
+  type: *1ary_float32
+  semantics: *absolute_value
+
+- id: 485
+  name: absolute_value_float64
+  type: *1ary_float64
+  semantics: *absolute_value
+
+- id: 512
+  name: sign_int8
+  type: *1ary_def_int8
+  semantics: *sign
+
+- id: 513
+  name: sign_int16
+  type: *1ary_def_int16
+  semantics: *sign
+
+- id: 514
+  name: sign_int32
+  type: *1ary_def_int32
+  semantics: *sign
+
+- id: 515
+  name: sign_int64
+  type: *1ary_def_int64
+  semantics: *sign
+
+- id: 516
+  name: sign_float32
+  type: *1ary_def_float32
+  semantics: *sign
+
+- id: 517
+  name: sign_float64
+  type: *1ary_def_float64
+  semantics: *sign

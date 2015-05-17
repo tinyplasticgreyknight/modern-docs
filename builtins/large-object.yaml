@@ -1,0 +1,106 @@
+title: Large-object Builtins
+entries:
+
+- id: 1696
+  name: decode_utf8
+  type:
+  - str: utf8
+  - result: {maybe: nat32}
+
+- id: 1728
+  name: encode_utf8
+  type:
+  - input: nat32
+  - result: {maybe: utf8}
+
+- id: 1760
+  name: character_offset_to_byte_offset_utf8
+  type:
+  - str: utf8
+  - index: nat64
+  - result: {maybe: nat64}
+  semantics: |
+    Determines the byte position of the start of the UTF-8 character at character index ``index``.  The resulting ``maybe`` is populated if such a character index exists.
+
+- id: 1792
+  name: length_bytes_utf8
+  type:
+  - str: utf8
+  - result: nat64
+  semantics: |
+    Returns the length of the string, in bytes.  Note that this will typically be different from the length in characters.
+
+- id: 1793
+  name: length_bytes_blob
+  type:
+  - object: blob
+  - result: nat64
+  semantics: |
+    Return the length of the ``object``, in bytes.
+
+- id: 1824
+  name: get_byte_blob
+  type:
+  - object: blob
+  - index: nat64
+  - result: {maybe: nat8}
+  semantics: |
+    Retrieve the byte of ``object`` at the specified ``index``.  The resulting ``maybe`` is empty if the index is out of range.
+
+- id: 1856
+  name: replace_byte_blob
+  type:
+  - object: blob
+  - index: nat64
+  - replacement: nat8
+  - result: {maybe: blob}
+  semantics: |
+    Returns a copy of the ``object`` with a byte at the specified ``index`` replaced by the given ``replacement`` byte.  The resulting ``maybe`` is empty if the index is out of range, otherwise it contains the modified blob.
+
+- id: 1888
+  name: get_data_piece_utf8
+  type:
+  - str: utf8
+  - start_index: nat64
+  - b: nat64
+  - result: {maybe: utf8}
+
+- id: 1889
+  name: get_data_piece_blob
+  type:
+  - object: blob
+  - start_index: nat64
+  - b: nat64
+  - result: {maybe: blob}
+
+- id: 1920
+  name: replace_data_piece_utf8
+  type:
+  - str: utf8
+  - start_index: nat64
+  - b: nat64
+  - replacement: utf8
+  - result: {maybe: utf8}
+
+- id: 1921
+  name: replace_data_piece_blob
+  type:
+  - object: blob
+  - start_index: nat64
+  - b: nat64
+  - replacement: blob
+  - result: {maybe: blob}
+
+- id: 1952
+  name: empty_utf8
+  type:
+  - result: utf8
+  semantics: |
+    Returns the empty string ``""``.
+
+- id: 1953
+  name: empty_blob
+  type:
+  - result: blob
+  semantics: |
+    Returns an empty blob.
