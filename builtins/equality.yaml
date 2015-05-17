@@ -99,3 +99,39 @@ entries:
   - result: bool
   semantics: |
     Performs equality testing on ``float64`` values.  Returns true if the two comparands are considered equal to each other.
+
+- id: 139
+  name: equal_to_name
+  type:
+  - comparand1: name
+  - comparand2: name
+  - result: bool
+  semantics: |
+    Performs equality testing on ``name`` values.  Returns true if the two comparands are considered equal to each other.
+
+- id: 140
+  name: equal_to_utf8
+  type:
+  - comparand1: utf8
+  - comparand2: utf8
+  - result: bool
+  semantics: |
+    Performs equality testing on ``utf8`` values.  Returns true if the two comparands are considered equal to each other.
+
+- id: 150
+  name: equal_to_blob
+  type:
+  - comparand1: blob
+  - comparand2: blob
+  - result: bool
+  semantics: |
+    Performs equality testing on ``blob`` values.  Returns true if the two comparands are considered equal to each other.
+
+- id: 151
+  name: equal_to_ordering
+  type:
+  - comparand1: ordering
+  - comparand2: ordering
+  - result: bool
+  semantics: |
+    Performs equality testing on ``ordering`` values.  Returns true if the two comparands are considered equal to each other.

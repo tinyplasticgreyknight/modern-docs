@@ -4,9 +4,12 @@ import os, sys, shutil
 from categorisation import *
 from gather import *
 from funcs import *
+from verify import *
 
 def main(source_dir):
 	root = gather_docs()
+	for child in root.children:
+		verify_consistency(child)
 	root.create_tree(source_dir)
 	ensure_dir_exists(os.path.join(source_dir, "_static"))
 	shutil.copy("sphinx-conf.py", os.path.join(source_dir, "conf.py"))
