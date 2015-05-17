@@ -135,6 +135,12 @@ class NamedType(ApType2ary):
 		self.ap_name = "named"
 AP_TYPES['named'] = NamedType
 
+class SigmaType(ApType2ary):
+	def __init__(self, inner_types, refs):
+		ApType2ary.__init__(self, inner_types, refs)
+		self.ap_name = "sigma"
+AP_TYPES['sigma'] = SigmaType
+
 class Builtin(Leaf):
 	def __init__(self, type=None, *args, **kwargs):
 		Leaf.__init__(self, *args, **kwargs)

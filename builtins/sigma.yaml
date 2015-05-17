@@ -1,0 +1,18 @@
+title: Sigma-value Builtins
+entries:
+
+- id: 1984
+  name: get_sigma_field_value
+  type:
+  - a: {universe: 0}
+  - b: [{_: a}, {_: {universe: 0}}]
+  - c: {sigma: [a, b]}
+  - result: a
+
+- id: 2016
+  name: get_sigma_successor
+  type:
+  - a: {universe: 0}
+  - b: [{_: a}, {_: {universe: 0}}]
+  - c: {sigma: [a, b]}
+  - result: b

@@ -28,7 +28,7 @@ def verify_type(supposed, refs):
 			return True
 	if supposed in refs:
 		return True
-	raise TypeError("did not recognise %s as a primitive type" % repr(supposed))
+	raise TypeError("did not recognise %s as a type" % repr(supposed))
 
 def verify_consistency(cat):
 	def _verify(cat, idents):
