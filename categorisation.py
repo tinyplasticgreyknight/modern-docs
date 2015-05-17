@@ -3,17 +3,19 @@ import io
 from funcs import *
 from verify import *
 
+AP_TYPES = {}
+
 def mktype(ntype, refs):
 	if type(ntype) == str or type(ntype) == int:
 		verify_type(str(ntype), refs)
 		return str(ntype)
 	elif type(ntype) == dict:
-		if "maybe" in ntype:
-			return MaybeType(ntype['maybe'], refs)
-		elif "universe" in ntype:
-			return UniverseType(ntype['universe'], refs)
-		else:
-			raise TypeError("didn't recognise ap-type %s" % repr(ntype))
+		apkeys = AP_TYPES.keys()
+		for ctor_name in apkeys:
+			if ctor_name in ntype:
+				ctor = AP_TYPES[ctor_name]
+				return ctor(ntype[ctor_name], refs)
+		raise TypeError("didn't recognise ap-type %s" % repr(ntype))
 	elif type(ntype) == list:
 		return TypeWithNames(ntype, refs)
 	else:
@@ -87,21 +89,40 @@ class ApType(object):
 		self.ap_name = None
 		self.inner_type = mktype(inner_type, refs)
 
-	def __str__(self):
-		if type(self.inner_type) == str:
-			return "%s %s" % (self.ap_name, self.inner_type)
+	def str_interior_part(self, obj):
+		if type(obj) == str:
+			return obj
 		else:
-			return "%s (%s)" % (self.ap_name, str(self.inner_type))
+			return "(%s)" % str(obj)
+
+	def interior(self):
+		return self.str_interior_part(self.inner_type)
+
+	def __str__(self):
+		return "%s %s" % (self.ap_name, self.interior())
 
 class MaybeType(ApType):
 	def __init__(self, inner_type, refs):
 		ApType.__init__(self, inner_type, refs)
 		self.ap_name = "maybe"
+AP_TYPES['maybe'] = MaybeType
 
 class UniverseType(ApType):
 	def __init__(self, inner_type, refs):
 		ApType.__init__(self, inner_type, refs)
 		self.ap_name = "universe"
+AP_TYPES['universe'] = UniverseType
+
+class SatisfiesType(ApType):
+	def __init__(self, inner_types, refs):
+		assert(len(inner_types) == 2)
+		self.satsuper = inner_types[0]
+		self.satpred = inner_types[1]
+		self.ap_name = "satisfies"
+
+	def interior(self):
+		return "%s %s" % (self.str_interior_part(self.satsuper), self.str_interior_part(self.satpred))
+AP_TYPES['satisfies'] = SatisfiesType
 
 class Builtin(Leaf):
 	def __init__(self, type=None, *args, **kwargs):

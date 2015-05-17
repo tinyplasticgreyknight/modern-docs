@@ -111,3 +111,10 @@ entries:
   type:
   - level: nat64
   - result: {universe: level}
+
+- id: 2480
+  name: make_satisfies_type
+  type:
+  - supertype: {universe: 0}
+  - predicate: [{_: supertype}, {_: bool}]
+  - result: {satisfies: [supertype, predicate]}
