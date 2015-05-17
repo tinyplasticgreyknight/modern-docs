@@ -15,11 +15,10 @@ def main(source_dir):
 	shutil.copy("sphinx-conf.py", os.path.join(source_dir, "conf.py"))
 
 def gather_docs():
-	root = Category(title="Modern, the data/schema format", toc_depth=2, is_root=True, use_intro="content/index.rst")
-	root.add_child(gather_directory(None, "content", "semantics"))
-	root.add_child(gather_directory(None, "content", "c-library"))
-	root.add_child(gather_directory(None, "content", "builtins"))
-	root.add_child(gather_directory(None, "content", "nodes"))
+	root = gather_directory(None, ".", "content")
+	root.name = None
+	root.is_root = True
+	#root.toc_depth = 2
 	return root
 
 main(*sys.argv[1:])
