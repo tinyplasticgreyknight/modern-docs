@@ -1,6 +1,37 @@
 import os
 import io
+import re
 from funcs import *
+
+PRIMITIVE_TYPES = [
+	"bool",
+	"int8",
+	"int16",
+	"int32",
+	"int64",
+	"nat8",
+	"nat16",
+	"nat32",
+	"nat64",
+	"float32",
+	"float64",
+	"universe [0-9]+",
+	"name",
+	"ordering",
+	"blob",
+	"utf8",
+]
+
+for i in range(len(PRIMITIVE_TYPES)):
+	PRIMITIVE_TYPES[i] = re.compile("^%s$" % PRIMITIVE_TYPES[i])
+
+def verify_primitive_type(supposed, refs):
+	for pattern in PRIMITIVE_TYPES:
+		if pattern.match(supposed):
+			return True
+	if supposed in refs:
+		return True
+	raise TypeError("did not recognise %s as a primitive type" % repr(supposed))
 
 class Leaf(object):
 	def __init__(self, ident, name, semantics=None):
@@ -32,15 +63,23 @@ class Leaf(object):
 		stream.write("%s\n" % self.semantics)
 
 class NamedParam(object):
-	def __init__(self, name, ntype):
+	def __init__(self, name, ntype, refs=[]):
 		self.name = name
 		if type(ntype) == str:
+			verify_primitive_type(ntype, refs)
 			self.type = ntype
+		elif type(ntype) == dict:
+			if "maybe" in ntype:
+				self.type = MaybeType(ntype['maybe'])
+			else:
+				raise TypeError("didn't recognise monadic type %s" % repr(ntype))
+		elif type(ntype) == list:
+			self.type = TypeWithNames(ntype, refs)
 		else:
-			self.type = TypeWithNames(ntype)
+			raise TypeError("didn't recognise type %s" % repr(ntype))
 
 class TypeWithNames(object):
-	def __init__(self, yaml):
+	def __init__(self, yaml, refs=[]):
 		self.terms = []
 		self.params = []
 		self.result = None
@@ -48,15 +87,23 @@ class TypeWithNames(object):
 			assert(len(term) == 1)
 			name = list(term.keys())[0]
 			ptype = term[name]
-			param = NamedParam(name, ptype)
+			refs.append(name)
+			param = NamedParam(name, ptype, refs=refs)
 			self.terms.append(param)
 			if name == "result":
-				self.result = ptype
+				self.result = param.type
 			else:
 				self.params.append(param)
 
 	def __str__(self):
 		return " -> ".join([str(x.type) for x in self.terms])
+
+class MaybeType(object):
+	def __init__(self, inner_type):
+		self.inner_type = inner_type
+
+	def __str__(self):
+		return "maybe %s" % str(self.inner_type)
 
 class Builtin(Leaf):
 	def __init__(self, type=None, *args, **kwargs):
@@ -73,7 +120,7 @@ class Builtin(Leaf):
 		for param in self.type.params:
 			stream.write("  - *%s* : ``%s``\n" % (param.name, str(param.type)))
 		stream.write("\n")
-		stream.write("* **Result:** ``%s``\n" % self.type.result)
+		stream.write("* **Result:** ``%s``\n" % str(self.type.result))
 
 class Category(object):
 	def __init__(self, title, name=None, toc_depth=1, is_root=False):

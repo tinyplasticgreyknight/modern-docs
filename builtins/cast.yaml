@@ -5,7 +5,7 @@ entries:
   name: cast_int8_int16
   type:
   - input_value: int8
-  - result: maybe int16
+  - result: {maybe: int16}
   semantics: |
     Cast an ``int8`` value into the corresponding ``int16`` value.
     This is always a possible cast, so ``result`` will always have its ``maybe`` populated.
