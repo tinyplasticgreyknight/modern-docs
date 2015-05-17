@@ -6,6 +6,11 @@ from categorisation import *
 def gather_directory(title, path_prefix, dirname, gather_leaf=None):
 	cat = Category(title=title, name=dirname)
 	scan_path = os.path.join(path_prefix, dirname)
+	if gather_leaf is None:
+		if dirname == "builtins":
+			gather_leaf = gather_yaml_builtin
+		elif dirname == "nodes":
+			gather_leaf = gather_yaml_node
 	for entry in os.listdir(scan_path):
 		full_entry = os.path.join(scan_path, entry)
 		if os.path.isdir(full_entry):

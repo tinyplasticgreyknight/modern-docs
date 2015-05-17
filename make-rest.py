@@ -18,8 +18,8 @@ def gather_docs():
 	root = Category(title="Modern, the data/schema format", toc_depth=2, is_root=True, use_intro="content/index.rst")
 	root.add_child(gather_directory(None, "content", "semantics"))
 	root.add_child(gather_directory(None, "content", "c-library"))
-	root.add_child(gather_directory(None, "content", "builtins", gather_yaml_builtin))
-	root.add_child(gather_directory(None, "content", "nodes", gather_yaml_node))
+	root.add_child(gather_directory(None, "content", "builtins"))
+	root.add_child(gather_directory(None, "content", "nodes"))
 	return root
 
 main(*sys.argv[1:])
