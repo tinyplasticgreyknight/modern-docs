@@ -1,194 +1,421 @@
 title: Bitwise Operation Builtins
+common:
+  type_shift_rot_int8: &shift_rot_int8
+  - input: int8
+  - count: nat8
+  - result: int8
+  type_shift_rot_int16: &shift_rot_int16
+  - input: int16
+  - count: nat8
+  - result: int16
+  type_shift_rot_int32: &shift_rot_int32
+  - input: int32
+  - count: nat8
+  - result: int32
+  type_shift_rot_int64: &shift_rot_int64
+  - input: int64
+  - count: nat8
+  - result: int64
+  type_shift_rot_nat8: &shift_rot_nat8
+  - input: nat8
+  - count: nat8
+  - result: nat8
+  type_shift_rot_nat16: &shift_rot_nat16
+  - input: nat16
+  - count: nat8
+  - result: nat16
+  type_shift_rot_nat32: &shift_rot_nat32
+  - input: nat32
+  - count: nat8
+  - result: nat32
+  type_shift_rot_nat64: &shift_rot_nat64
+  - input: nat64
+  - count: nat8
+  - result: nat64
+  type_combine_int8: &combine_int8
+  - x: int8
+  - y: int8
+  - result: int8
+  type_combine_int16: &combine_int16
+  - x: int16
+  - y: int16
+  - result: int16
+  type_combine_int32: &combine_int32
+  - x: int32
+  - y: int32
+  - result: int32
+  type_combine_int64: &combine_int64
+  - x: int64
+  - y: int64
+  - result: int64
+  type_combine_nat8: &combine_nat8
+  - x: nat8
+  - y: nat8
+  - result: nat8
+  type_combine_nat16: &combine_nat16
+  - x: nat16
+  - y: nat16
+  - result: nat16
+  type_combine_nat32: &combine_nat32
+  - x: nat32
+  - y: nat32
+  - result: nat32
+  type_combine_nat64: &combine_nat64
+  - x: nat64
+  - y: nat64
+  - result: nat64
+
+  semantics_shift_left: &shift_left |
+    Shifts the ``input`` left by ``count`` bits.
+  semantics_shift_left: &shift_right |
+    Shifts the ``input`` right by ``count`` bits.
+  semantics_shift_left: &rotate_left |
+    Rotates the ``input`` left by ``count`` bits.
+  semantics_shift_left: &rotate_right |
+    Rotates the ``input`` right by ``count`` bits.
+  semantics_bit_and: &bit_and |
+    Determines the bitwise AND of ``x`` and ``y``.
+  semantics_bit_or: &bit_or |
+    Determines the bitwise OR of ``x`` and ``y``.
+  semantics_bit_xor: &bit_xor |
+    Determines the bitwise XOR of ``x`` and ``y``.
+  semantics_bit_not: &bit_not |
+    Determines the bitwise NOT of ``x``.
+
 entries:
 
 - id: 1440
   name: shift_left_int8
+  type: *shift_rot_int8
+  semantics: *shift_left
 
 - id: 1441
   name: shift_left_int16
+  type: *shift_rot_int16
+  semantics: *shift_left
 
 - id: 1442
   name: shift_left_int32
+  type: *shift_rot_int32
+  semantics: *shift_left
 
 - id: 1443
   name: shift_left_int64
+  type: *shift_rot_int64
+  semantics: *shift_left
 
 - id: 1444
   name: shift_left_nat8
+  type: *shift_rot_nat8
+  semantics: *shift_left
 
 - id: 1445
   name: shift_left_nat16
+  type: *shift_rot_nat16
+  semantics: *shift_left
 
 - id: 1456
   name: shift_left_nat32
+  type: *shift_rot_nat32
+  semantics: *shift_left
 
 - id: 1457
   name: shift_left_nat64
+  type: *shift_rot_nat64
+  semantics: *shift_left
 
 - id: 1472
   name: shift_right_int8
+  type: *shift_rot_int8
+  semantics: *shift_right
 
 - id: 1473
   name: shift_right_int16
+  type: *shift_rot_int16
+  semantics: *shift_right
 
 - id: 1474
   name: shift_right_int32
+  type: *shift_rot_int32
+  semantics: *shift_right
 
 - id: 1475
   name: shift_right_int64
+  type: *shift_rot_int64
+  semantics: *shift_right
 
 - id: 1476
   name: shift_right_nat8
+  type: *shift_rot_nat8
+  semantics: *shift_right
 
 - id: 1477
   name: shift_right_nat16
+  type: *shift_rot_nat16
+  semantics: *shift_right
 
 - id: 1478
   name: shift_right_nat32
+  type: *shift_rot_nat32
+  semantics: *shift_right
 
 - id: 1479
   name: shift_right_nat64
+  type: *shift_rot_nat64
+  semantics: *shift_right
 
 - id: 1504
   name: rotate_left_int8
+  type: *shift_rot_int8
+  semantics: *rotate_left
 
 - id: 1505
   name: rotate_left_int16
+  type: *shift_rot_int16
+  semantics: *rotate_left
 
 - id: 1506
   name: rotate_left_int32
+  type: *shift_rot_int32
+  semantics: *rotate_left
 
 - id: 1507
   name: rotate_left_int64
+  type: *shift_rot_int64
+  semantics: *rotate_left
 
 - id: 1508
   name: rotate_left_nat8
+  type: *shift_rot_nat8
+  semantics: *rotate_left
 
 - id: 1509
   name: rotate_left_nat16
+  type: *shift_rot_nat16
+  semantics: *rotate_left
 
 - id: 1510
   name: rotate_left_nat32
+  type: *shift_rot_nat32
+  semantics: *rotate_left
 
 - id: 1511
   name: rotate_left_nat64
+  type: *shift_rot_nat64
+  semantics: *rotate_left
 
 - id: 1536
   name: rotate_right_int8
+  type: *shift_rot_int8
+  semantics: *rotate_right
 
 - id: 1537
   name: rotate_right_int16
+  type: *shift_rot_int16
+  semantics: *rotate_right
 
 - id: 1538
   name: rotate_right_int32
+  type: *shift_rot_int32
+  semantics: *rotate_right
 
 - id: 1539
   name: rotate_right_int64
+  type: *shift_rot_int64
+  semantics: *rotate_right
 
 - id: 1540
   name: rotate_right_nat8
+  type: *shift_rot_nat8
+  semantics: *rotate_right
 
 - id: 1541
   name: rotate_right_nat16
+  type: *shift_rot_nat16
+  semantics: *rotate_right
 
 - id: 1542
   name: rotate_right_nat32
+  type: *shift_rot_nat32
+  semantics: *rotate_right
 
 - id: 1543
   name: rotate_right_nat64
+  type: *shift_rot_nat64
+  semantics: *rotate_right
 
 - id: 1568
   name: bit_and_int8
+  type: *combine_int8
+  semantics: *bit_and
 
 - id: 1569
   name: bit_and_int16
+  type: *combine_int16
+  semantics: *bit_and
 
 - id: 1570
   name: bit_and_int32
+  type: *combine_int32
+  semantics: *bit_and
 
 - id: 1571
   name: bit_and_int64
+  type: *combine_int64
+  semantics: *bit_and
 
 - id: 1572
   name: bit_and_nat8
+  type: *combine_nat8
+  semantics: *bit_and
 
 - id: 1573
   name: bit_and_nat16
+  type: *combine_nat16
+  semantics: *bit_and
 
 - id: 1574
   name: bit_and_nat32
+  type: *combine_nat32
+  semantics: *bit_and
 
 - id: 1575
   name: bit_and_nat64
+  type: *combine_nat64
+  semantics: *bit_and
 
 - id: 1600
   name: bit_or_int8
+  type: *combine_int8
+  semantics: *bit_or
 
 - id: 1601
   name: bit_or_int16
+  type: *combine_int16
+  semantics: *bit_or
 
 - id: 1602
   name: bit_or_int32
+  type: *combine_int32
+  semantics: *bit_or
 
 - id: 1603
   name: bit_or_int64
+  type: *combine_int64
+  semantics: *bit_or
 
 - id: 1604
   name: bit_or_nat8
+  type: *combine_nat8
+  semantics: *bit_or
 
 - id: 1605
   name: bit_or_nat16
+  type: *combine_nat16
+  semantics: *bit_or
 
 - id: 1606
   name: bit_or_nat32
+  type: *combine_nat32
+  semantics: *bit_or
 
 - id: 1607
   name: bit_or_nat64
+  type: *combine_nat64
+  semantics: *bit_or
 
 - id: 1632
   name: bit_xor_int8
+  type: *combine_int8
+  semantics: *bit_xor
 
 - id: 1633
   name: bit_xor_int16
+  type: *combine_int16
+  semantics: *bit_xor
 
 - id: 1634
   name: bit_xor_int32
+  type: *combine_int32
+  semantics: *bit_xor
 
 - id: 1635
   name: bit_xor_int64
+  type: *combine_int64
+  semantics: *bit_xor
 
 - id: 1636
   name: bit_xor_nat8
+  type: *combine_nat8
+  semantics: *bit_xor
 
 - id: 1637
   name: bit_xor_nat16
+  type: *combine_nat16
+  semantics: *bit_xor
 
 - id: 1638
   name: bit_xor_nat32
+  type: *combine_nat32
+  semantics: *bit_xor
 
 - id: 1639
   name: bit_xor_nat64
+  type: *combine_nat64
+  semantics: *bit_xor
 
 - id: 1664
   name: bit_not_int8
+  type:
+  - x: int8
+  - result: int8
+  semantics: *bit_not
 
 - id: 1665
   name: bit_not_int16
+  type:
+  - x: int16
+  - result: int16
+  semantics: *bit_not
 
 - id: 1666
   name: bit_not_int32
+  type:
+  - x: int32
+  - result: int32
+  semantics: *bit_not
 
 - id: 1667
   name: bit_not_int64
+  type:
+  - x: int64
+  - result: int64
+  semantics: *bit_not
 
 - id: 1668
   name: bit_not_nat8
+  type:
+  - x: nat8
+  - result: nat8
+  semantics: *bit_not
 
 - id: 1669
   name: bit_not_nat16
+  type:
+  - x: nat16
+  - result: nat16
+  semantics: *bit_not
 
 - id: 1670
   name: bit_not_nat32
+  type:
+  - x: nat32
+  - result: nat32
+  semantics: *bit_not
 
 - id: 1671
   name: bit_not_nat64
+  type:
+  - x: nat64
+  - result: nat64
+  semantics: *bit_not

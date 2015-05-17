@@ -1,326 +1,610 @@
 title: Rounding Builtins
+common:
+  semantics_round_towards_zero: &round_towards_zero |
+    Rounds the ``input`` to an integer, choosing the side closest to zero.
+  semantics_round_away_from_zero: &round_away_from_zero |
+    Rounds the ``input`` to an integer, choosing the side furthest from zero.
+  semantics_round_towards_even: &round_towards_even |
+    Rounds the ``input`` to an integer, choosing the even side.
+  semantics_round_towards_odd: &round_towards_odd |
+    Rounds the ``input`` to an integer, choosing the odd side.
+  semantics_ceiling: &ceiling |
+    Computes the smallest integer greater than or equal to the ``input``.
+  semantics_floor: &floor |
+    Computes the largest integer less than or equal to the ``input``.
+
+  type_r32_int8: &r32_int8
+  - input: float32
+  - result: int8
+  type_r32_int16: &r32_int16
+  - input: float32
+  - result: int16
+  type_r32_int32: &r32_int32
+  - input: float32
+  - result: int32
+  type_r32_int64: &r32_int64
+  - input: float32
+  - result: int64
+  type_r32_nat8: &r32_nat8
+  - input: float32
+  - result: nat8
+  type_r32_nat16: &r32_nat16
+  - input: float32
+  - result: nat16
+  type_r32_nat32: &r32_nat32
+  - input: float32
+  - result: nat32
+  type_r32_nat64: &r32_nat64
+  - input: float32
+  - result: nat64
+  type_r64_int8: &r64_int8
+  - input: float64
+  - result: int8
+  type_r64_int16: &r64_int16
+  - input: float64
+  - result: int16
+  type_r64_int32: &r64_int32
+  - input: float64
+  - result: int32
+  type_r64_int64: &r64_int64
+  - input: float64
+  - result: int64
+  type_r64_nat8: &r64_nat8
+  - input: float64
+  - result: nat8
+  type_r64_nat16: &r64_nat16
+  - input: float64
+  - result: nat16
+  type_r64_nat32: &r64_nat32
+  - input: float64
+  - result: nat32
+  type_r64_nat64: &r64_nat64
+  - input: float64
+  - result: nat64
+  type_r32: &r32
+  - input: float32
+  - result: float32
+  type_r64: &r64
+  - input: float64
+  - result: float64
 entries:
 
 - id: 1184
   name: round_towards_zero_float32_int8
+  type: *r32_int8
+  semantics: *round_towards_zero
 
 - id: 1185
   name: round_towards_zero_float64_int8
+  type: *r64_int8
+  semantics: *round_towards_zero
 
 - id: 1186
   name: round_towards_zero_float32_int16
+  type: *r32_int16
+  semantics: *round_towards_zero
 
 - id: 1187
   name: round_towards_zero_float64_int16
+  type: *r64_int16
+  semantics: *round_towards_zero
 
 - id: 1188
   name: round_towards_zero_float32_int32
+  type: *r32_int32
+  semantics: *round_towards_zero
 
 - id: 1189
   name: round_towards_zero_float64_int32
+  type: *r64_int32
+  semantics: *round_towards_zero
 
 - id: 1190
   name: round_towards_zero_float32_int64
+  type: *r32_int64
+  semantics: *round_towards_zero
 
 - id: 1191
   name: round_towards_zero_float64_int64
+  type: *r64_int64
+  semantics: *round_towards_zero
 
 - id: 1192
   name: round_towards_zero_float32_nat8
+  type: *r32_nat8
+  semantics: *round_towards_zero
 
 - id: 1193
   name: round_towards_zero_float64_nat8
+  type: *r64_nat8
+  semantics: *round_towards_zero
 
 - id: 1194
   name: round_towards_zero_float32_nat16
+  type: *r32_nat16
+  semantics: *round_towards_zero
 
 - id: 1195
   name: round_towards_zero_float64_nat16
+  type: *r64_nat16
+  semantics: *round_towards_zero
 
 - id: 1196
   name: round_towards_zero_float32_nat32
+  type: *r32_nat32
+  semantics: *round_towards_zero
 
 - id: 1197
   name: round_towards_zero_float64_nat32
+  type: *r64_nat32
+  semantics: *round_towards_zero
 
 - id: 1198
   name: round_towards_zero_float32_nat64
+  type: *r32_nat64
+  semantics: *round_towards_zero
 
 - id: 1199
   name: round_towards_zero_float64_nat64
+  type: *r64_nat64
+  semantics: *round_towards_zero
 
 - id: 1200
   name: round_towards_zero_float32_float32
+  type: *r32
+  semantics: *round_towards_zero
 
 - id: 1201
   name: round_towards_zero_float64_float64
+  type: *r64
+  semantics: *round_towards_zero
 
 - id: 1216
   name: round_away_from_zero_float32_int8
+  type: *r32_int8
+  semantics: *round_away_from_zero
 
 - id: 1217
   name: round_away_from_zero_float64_int8
+  type: *r64_int8
+  semantics: *round_away_from_zero
 
 - id: 1218
   name: round_away_from_zero_float32_int16
+  type: *r32_int16
+  semantics: *round_away_from_zero
 
 - id: 1219
   name: round_away_from_zero_float64_int16
+  type: *r64_int16
+  semantics: *round_away_from_zero
 
 - id: 1220
   name: round_away_from_zero_float32_int32
+  type: *r32_int32
+  semantics: *round_away_from_zero
 
 - id: 1221
   name: round_away_from_zero_float64_int32
+  type: *r64_int32
+  semantics: *round_away_from_zero
 
 - id: 1222
   name: round_away_from_zero_float32_int64
+  type: *r32_int64
+  semantics: *round_away_from_zero
 
 - id: 1223
   name: round_away_from_zero_float64_int64
+  type: *r64_int64
+  semantics: *round_away_from_zero
 
 - id: 1224
   name: round_away_from_zero_float32_nat8
+  type: *r32_nat8
+  semantics: *round_away_from_zero
 
 - id: 1225
   name: round_away_from_zero_float64_nat8
+  type: *r64_nat8
+  semantics: *round_away_from_zero
 
 - id: 1226
   name: round_away_from_zero_float32_nat16
+  type: *r32_nat16
+  semantics: *round_away_from_zero
 
 - id: 1227
   name: round_away_from_zero_float64_nat16
+  type: *r64_nat16
+  semantics: *round_away_from_zero
 
 - id: 1228
   name: round_away_from_zero_float32_nat32
+  type: *r32_nat32
+  semantics: *round_away_from_zero
 
 - id: 1229
   name: round_away_from_zero_float64_nat32
+  type: *r64_nat32
+  semantics: *round_away_from_zero
 
 - id: 1230
   name: round_away_from_zero_float32_nat64
+  type: *r32_nat64
+  semantics: *round_away_from_zero
 
 - id: 1231
   name: round_away_from_zero_float64_nat64
+  type: *r64_nat64
+  semantics: *round_away_from_zero
 
 - id: 1232
   name: round_away_from_zero_float32_float32
+  type: *r32
+  semantics: *round_away_from_zero
 
 - id: 1233
   name: round_away_from_zero_float64_float64
+  type: *r64
+  semantics: *round_away_from_zero
 
 - id: 1248
   name: round_towards_even_float32_int8
+  type: *r32_int8
+  semantics: *round_towards_even
 
 - id: 1249
   name: round_towards_even_float64_int8
+  type: *r64_int8
+  semantics: *round_towards_even
 
 - id: 1250
   name: round_towards_even_float32_int16
+  type: *r32_int16
+  semantics: *round_towards_even
 
 - id: 1251
   name: round_towards_even_float64_int16
+  type: *r64_int16
+  semantics: *round_towards_even
 
 - id: 1252
   name: round_towards_even_float32_int32
+  type: *r32_int32
+  semantics: *round_towards_even
 
 - id: 1253
   name: round_towards_even_float64_int32
+  type: *r64_int32
+  semantics: *round_towards_even
 
 - id: 1254
   name: round_towards_even_float32_int64
+  type: *r32_int64
+  semantics: *round_towards_even
 
 - id: 1255
   name: round_towards_even_float64_int64
+  type: *r64_int64
+  semantics: *round_towards_even
 
 - id: 1256
   name: round_towards_even_float32_nat8
+  type: *r32_nat8
+  semantics: *round_towards_even
 
 - id: 1257
   name: round_towards_even_float64_nat8
+  type: *r64_nat8
+  semantics: *round_towards_even
 
 - id: 1258
   name: round_towards_even_float32_nat16
+  type: *r32_nat16
+  semantics: *round_towards_even
 
 - id: 1259
   name: round_towards_even_float64_nat16
+  type: *r64_nat16
+  semantics: *round_towards_even
 
 - id: 1260
   name: round_towards_even_float32_nat32
+  type: *r32_nat32
+  semantics: *round_towards_even
 
 - id: 1261
   name: round_towards_even_float64_nat32
+  type: *r64_nat32
+  semantics: *round_towards_even
 
 - id: 1262
   name: round_towards_even_float32_nat64
+  type: *r32_nat64
+  semantics: *round_towards_even
 
 - id: 1263
   name: round_towards_even_float64_nat64
+  type: *r64_nat64
+  semantics: *round_towards_even
 
 - id: 1264
   name: round_towards_even_float32_float32
+  type: *r32
+  semantics: *round_towards_even
 
 - id: 1265
   name: round_towards_even_float64_float64
+  type: *r64
+  semantics: *round_towards_even
 
 - id: 1280
   name: round_towards_odd_float32_int8
+  type: *r32_int8
+  semantics: *round_towards_odd
 
 - id: 1281
   name: round_towards_odd_float64_int8
+  type: *r64_int8
+  semantics: *round_towards_odd
 
 - id: 1282
   name: round_towards_odd_float32_int16
+  type: *r32_int16
+  semantics: *round_towards_odd
 
 - id: 1283
   name: round_towards_odd_float64_int16
+  type: *r64_int16
+  semantics: *round_towards_odd
 
 - id: 1284
   name: round_towards_odd_float32_int32
+  type: *r32_int32
+  semantics: *round_towards_odd
 
 - id: 1285
   name: round_towards_odd_float64_int32
+  type: *r64_int32
+  semantics: *round_towards_odd
 
 - id: 1286
   name: round_towards_odd_float32_int64
+  type: *r32_int64
+  semantics: *round_towards_odd
 
 - id: 1287
   name: round_towards_odd_float64_int64
+  type: *r64_int64
+  semantics: *round_towards_odd
 
 - id: 1288
   name: round_towards_odd_float32_nat8
+  type: *r32_nat8
+  semantics: *round_towards_odd
 
 - id: 1289
   name: round_towards_odd_float64_nat8
+  type: *r64_nat8
+  semantics: *round_towards_odd
 
 - id: 1290
   name: round_towards_odd_float32_nat16
+  type: *r32_nat16
+  semantics: *round_towards_odd
 
 - id: 1291
   name: round_towards_odd_float64_nat16
+  type: *r64_nat16
+  semantics: *round_towards_odd
 
 - id: 1292
   name: round_towards_odd_float32_nat32
+  type: *r32_nat32
+  semantics: *round_towards_odd
 
 - id: 1293
   name: round_towards_odd_float64_nat32
+  type: *r64_nat32
+  semantics: *round_towards_odd
 
 - id: 1294
   name: round_towards_odd_float32_nat64
+  type: *r32_nat64
+  semantics: *round_towards_odd
 
 - id: 1295
   name: round_towards_odd_float64_nat64
+  type: *r64_nat64
+  semantics: *round_towards_odd
 
 - id: 1296
   name: round_towards_odd_float32_float32
+  type: *r32
+  semantics: *round_towards_odd
 
 - id: 1297
   name: round_towards_odd_float64_float64
+  type: *r64
+  semantics: *round_towards_odd
 
 - id: 1312
   name: ceiling_float32_int8
+  type: *r32_int8
+  semantics: *ceiling
 
 - id: 1313
   name: ceiling_float64_int8
+  type: *r64_int8
+  semantics: *ceiling
 
 - id: 1314
   name: ceiling_float32_int16
+  type: *r32_int16
+  semantics: *ceiling
 
 - id: 1315
   name: ceiling_float64_int16
+  type: *r64_int16
+  semantics: *ceiling
 
 - id: 1316
   name: ceiling_float32_int32
+  type: *r32_int32
+  semantics: *ceiling
 
 - id: 1317
   name: ceiling_float64_int32
+  type: *r64_int32
+  semantics: *ceiling
 
 - id: 1318
   name: ceiling_float32_int64
+  type: *r32_int64
+  semantics: *ceiling
 
 - id: 1319
   name: ceiling_float64_int64
+  type: *r64_int64
+  semantics: *ceiling
 
 - id: 1320
   name: ceiling_float32_nat8
+  type: *r32_nat8
+  semantics: *ceiling
 
 - id: 1321
   name: ceiling_float64_nat8
+  type: *r64_nat8
+  semantics: *ceiling
 
 - id: 1322
   name: ceiling_float32_nat16
+  type: *r32_nat16
+  semantics: *ceiling
 
 - id: 1323
   name: ceiling_float64_nat16
+  type: *r64_nat16
+  semantics: *ceiling
 
 - id: 1324
   name: ceiling_float32_nat32
+  type: *r32_nat32
+  semantics: *ceiling
 
 - id: 1325
   name: ceiling_float64_nat32
+  type: *r64_nat32
+  semantics: *ceiling
 
 - id: 1326
   name: ceiling_float32_nat64
+  type: *r32_nat64
+  semantics: *ceiling
 
 - id: 1327
   name: ceiling_float64_nat64
+  type: *r64_nat64
+  semantics: *ceiling
 
 - id: 1328
   name: ceiling_float32_float32
+  type: *r32
+  semantics: *ceiling
 
 - id: 1329
   name: ceiling_float64_float64
+  type: *r64
+  semantics: *ceiling
 
 - id: 1344
   name: floor_float32_int8
+  type: *r32_int8
+  semantics: *floor
 
 - id: 1345
   name: floor_float64_int8
+  type: *r64_int8
+  semantics: *floor
 
 - id: 1346
   name: floor_float32_int16
+  type: *r32_int16
+  semantics: *floor
 
 - id: 1347
   name: floor_float64_int16
+  type: *r64_int16
+  semantics: *floor
 
 - id: 1348
   name: floor_float32_int32
+  type: *r32_int32
+  semantics: *floor
 
 - id: 1349
   name: floor_float64_int32
+  type: *r64_int32
+  semantics: *floor
 
 - id: 1350
   name: floor_float32_int64
+  type: *r32_int64
+  semantics: *floor
 
 - id: 1351
   name: floor_float64_int64
+  type: *r64_int64
+  semantics: *floor
 
 - id: 1352
   name: floor_float32_nat8
+  type: *r32_nat8
+  semantics: *floor
 
 - id: 1353
   name: floor_float64_nat8
+  type: *r64_nat8
+  semantics: *floor
 
 - id: 1354
   name: floor_float32_nat16
+  type: *r32_nat16
+  semantics: *floor
 
 - id: 1355
   name: floor_float64_nat16
+  type: *r64_nat16
+  semantics: *floor
 
 - id: 1356
   name: floor_float32_nat32
+  type: *r32_nat32
+  semantics: *floor
 
 - id: 1357
   name: floor_float64_nat32
+  type: *r64_nat32
+  semantics: *floor
 
 - id: 1358
   name: floor_float32_nat64
+  type: *r32_nat64
+  semantics: *floor
 
 - id: 1359
   name: floor_float64_nat64
+  type: *r64_nat64
+  semantics: *floor
 
 - id: 1360
   name: floor_float32_float32
+  type: *r32
+  semantics: *floor
 
 - id: 1361
   name: floor_float64_float64
+  type: *r64
+  semantics: *floor
