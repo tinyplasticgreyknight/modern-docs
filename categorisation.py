@@ -30,6 +30,7 @@ class Leaf(object):
 	def create_entry(self, path_prefix):
 		filename = os.path.join(path_prefix, "%s.rst" % self.name)
 		with io.open(filename, 'w') as stream:
+			write_rest_header(stream, self.name, kind="=")
 			self.write_synopsis(stream)
 			self.write_entry(stream)
 			self.write_semantics(stream)
@@ -38,7 +39,6 @@ class Leaf(object):
 		pass
 
 	def write_synopsis(self, stream):
-		write_rest_header(stream, self.name, kind="=")
 		write_rest_header(stream, "Synopsis", kind="-")
 		stream.write("* **Numeric value:** %d\n" % self.ident)
 		stream.write("* **Standard name:** ``%s``\n" % self.name)
@@ -161,6 +161,14 @@ class Builtin(Leaf):
 			stream.write("* **Result:** ``%s``\n" % str(self.type.result))
 		if self.fixed_value is not None:
 			stream.write("* **Fixed Value:** ``%s``\n" % str(self.fixed_value))
+
+class CFunction(Leaf):
+	def __init__(self, name, *args, **kwargs):
+		Leaf.__init__(self, None, name, *args, **kwargs)
+
+	def write_synopsis(self, stream):
+		write_rest_header(stream, "Synopsis", kind="-")
+		stream.write("* **Name:** ``%s``\n" % self.name)
 
 class Category(object):
 	def __init__(self, title, name=None, toc_depth=1, is_root=False, use_intro=None):

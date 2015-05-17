@@ -1,6 +1,6 @@
 A library instance is an opaque structure which represents a single configured copy of the system. It is a basic type which, once constructed, is passed to every function. It contains structures of pointers to callbacks which are used to accomplish all the low-level tasks the library needs to conduct. Callback structures are used in several places in the system, and not all of them are part of the library instance - only the most fundamental ones.
 
-In all callbacks, the library is written with the expectation that the client code may longjmp() or cause program termination at any time, and will not crash upon these events. Allocation failure is also not the unrecoverable condition that it is in some systems; it is permitted, and will cause neither crashes nor memory leaks. The test suite verifies all of these behaviours extensively.
+In all callbacks, the library is written with the expectation that the client code may ``longjmp()`` or cause program termination at any time, and will not crash upon these events. Allocation failure is also not the unrecoverable condition that it is in some systems; it is permitted, and will cause neither crashes nor memory leaks. The test suite verifies all of these behaviours extensively.
 
 Library instances (as all of Modern Data) are threading-naive; that is, they use no thread-local storage, but also do no internal locking. No special action is needed to migrate a library instance from one operating-system thread to another, but only one thread may be in the midst of a library call at any given moment.
 

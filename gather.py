@@ -11,6 +11,8 @@ def gather_directory(title, path_prefix, dirname, gather_leaf=None):
 			gather_leaf = gather_yaml_builtin
 		elif dirname == "nodes":
 			gather_leaf = gather_yaml_node
+		elif dirname == "c-library":
+			gather_leaf = gather_yaml_c
 	for entry in os.listdir(scan_path):
 		full_entry = os.path.join(scan_path, entry)
 		if os.path.isdir(full_entry):
@@ -53,4 +55,8 @@ def gather_yaml_node(yaml):
 
 def gather_yaml_builtin(yaml):
 	leaf = Builtin(ident=yaml['id'], name=yaml['name'], semantics=yaml.get('semantics'), ntype=yaml.get('type'), fixed_value=yaml.get('fixed-value'))
+	return leaf
+
+def gather_yaml_c(yaml):
+	leaf = CFunction(name=yaml['name'])
 	return leaf

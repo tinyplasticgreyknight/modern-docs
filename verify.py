@@ -31,16 +31,21 @@ def verify_type(supposed, refs):
 	raise TypeError("did not recognise %s as a type" % repr(supposed))
 
 def verify_consistency(cat):
+	def _verify_ident(leaf, idents):
+		if leaf.ident is None: return
+		existing = idents.get(leaf.ident)
+		if existing is None: return
+		raise KeyError("ident %d is assigned to both %s and %s" % (leaf.ident, existing.name, leaf.name))
+	def _verify_name(leaf, leaf_names):
+		if leaf.name is None: return
+		existing = leaf_names.get(leaf.name)
+		if existing is None: return
+		raise KeyError("name %s is assigned to both %d and %d" % str(leaf.name), existing.ident, leaf.ident)
+
 	def _verify(cat, idents, leaf_names):
 		for leaf in cat.leaves:
-			existing = idents.get(leaf.ident)
-			if existing is not None:
-				raise KeyError("ident %d is assigned to both %s and %s" % (leaf.ident, existing.name, leaf.name))
-
-			existing = leaf_names.get(leaf.name)
-			if existing is not None:
-				raise KeyError("name %s is assigned to both %d and %d" % str(leaf.name), existing.ident, leaf.ident)
-
+			_verify_ident(leaf, idents)
+			_verify_name(leaf, leaf_names)
 			idents[leaf.ident] = leaf
 			leaf_names[leaf.name] = leaf
 
