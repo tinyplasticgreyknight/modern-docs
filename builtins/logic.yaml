@@ -1,0 +1,28 @@
+title: Logical Builtins
+entries:
+
+- id: 32
+  name: and_bool
+  type:
+  - input1: bool
+  - input2: bool
+  - result: bool
+  semantics: |
+    This is the basic logical-AND operation.  It returns true if both of its inputs were true, and returns false otherwise.
+
+- id: 64
+  name: or_bool
+  type:
+  - input1: bool
+  - input2: bool
+  - result: bool
+  semantics: |
+    This is the basic logical-OR operation.  It returns true if at least one of its inputs was true, and returns false otherwise.
+
+- id: 96
+  name: not_bool
+  type:
+  - input: bool
+  - result: bool
+  semantics: |
+    This is the basic logical-NOT operation.  It returns true if its input was false, and vice-versa.
