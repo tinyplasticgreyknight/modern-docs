@@ -1,0 +1,10 @@
+title: Named-value Builtins
+entries:
+
+- id: 2048
+  name: get_named_value
+  type:
+  - a: {universe: 0}
+  - b: name
+  - c: {named: [b, a]}
+  - result: a

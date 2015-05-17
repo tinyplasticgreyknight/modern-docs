@@ -113,16 +113,27 @@ class UniverseType(ApType):
 		self.ap_name = "universe"
 AP_TYPES['universe'] = UniverseType
 
-class SatisfiesType(ApType):
+class ApType2ary(ApType):
 	def __init__(self, inner_types, refs):
 		assert(len(inner_types) == 2)
-		self.satsuper = inner_types[0]
-		self.satpred = inner_types[1]
-		self.ap_name = "satisfies"
+		self.inner0 = mktype(inner_types[0], refs)
+		self.inner1 = mktype(inner_types[1], refs)
+		self.ap_name = None
 
 	def interior(self):
-		return "%s %s" % (self.str_interior_part(self.satsuper), self.str_interior_part(self.satpred))
+		return "%s %s" % (self.str_interior_part(self.inner0), self.str_interior_part(self.inner1))
+
+class SatisfiesType(ApType2ary):
+	def __init__(self, inner_types, refs):
+		ApType2ary.__init__(self, inner_types, refs)
+		self.ap_name = "satisfies"
 AP_TYPES['satisfies'] = SatisfiesType
+
+class NamedType(ApType2ary):
+	def __init__(self, inner_types, refs):
+		ApType2ary.__init__(self, inner_types, refs)
+		self.ap_name = "named"
+AP_TYPES['named'] = NamedType
 
 class Builtin(Leaf):
 	def __init__(self, type=None, *args, **kwargs):
