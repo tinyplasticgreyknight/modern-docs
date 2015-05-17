@@ -1,51 +1,23 @@
 import os
 import io
-import re
 from funcs import *
-
-PRIMITIVE_TYPES = [
-	"bool",
-	"int8",
-	"int16",
-	"int32",
-	"int64",
-	"nat8",
-	"nat16",
-	"nat32",
-	"nat64",
-	"float32",
-	"float64",
-	"universe [0-9]+",
-	"name",
-	"ordering",
-	"blob",
-	"utf8",
-]
-
-for i in range(len(PRIMITIVE_TYPES)):
-	PRIMITIVE_TYPES[i] = re.compile("^%s$" % PRIMITIVE_TYPES[i])
-
-def verify_primitive_type(supposed, refs):
-	for pattern in PRIMITIVE_TYPES:
-		if pattern.match(supposed):
-			return True
-	if supposed in refs:
-		return True
-	raise TypeError("did not recognise %s as a primitive type" % repr(supposed))
+from verify import *
 
 def mktype(ntype, refs):
-	if type(ntype) == str:
-		verify_primitive_type(ntype, refs)
-		return ntype
+	if type(ntype) == str or type(ntype) == int:
+		verify_type(str(ntype), refs)
+		return str(ntype)
 	elif type(ntype) == dict:
 		if "maybe" in ntype:
 			return MaybeType(ntype['maybe'], refs)
+		elif "universe" in ntype:
+			return UniverseType(ntype['universe'], refs)
 		else:
-			raise TypeError("didn't recognise monadic type %s" % repr(ntype))
+			raise TypeError("didn't recognise ap-type %s" % repr(ntype))
 	elif type(ntype) == list:
 		return TypeWithNames(ntype, refs)
 	else:
-		raise TypeError("didn't recognise type %s" % repr(ntype))
+		raise TypeError("didn't recognise type %s (%s)" % (repr(ntype), type(ntype)))
 
 class Leaf(object):
 	def __init__(self, ident, name, semantics=None):
@@ -77,12 +49,14 @@ class Leaf(object):
 		stream.write("%s\n" % self.semantics)
 
 class NamedParam(object):
-	def __init__(self, name, ntype, refs=[]):
+	def __init__(self, name, ntype, refs=None):
+		if refs is None: refs = []
 		self.name = name
 		self.type = mktype(ntype, refs)
 
 class TypeWithNames(object):
-	def __init__(self, yaml, refs=[]):
+	def __init__(self, yaml, refs=None):
+		if refs is None: refs = []
 		self.terms = []
 		self.params = []
 		self.result = None
@@ -102,21 +76,32 @@ class TypeWithNames(object):
 		vterms = []
 		for term in self.terms:
 			ttyp = term.type
-			if (type(ttyp) == str) or (type(ttyp) == MaybeType):
+			if (type(ttyp) == str) or isinstance(ttyp, ApType):
 				vterms.append(str(ttyp))
 			else:
 				vterms.append("(%s)" % str(ttyp))
 		return " -> ".join(vterms)
 
-class MaybeType(object):
+class ApType(object):
 	def __init__(self, inner_type, refs):
+		self.ap_name = None
 		self.inner_type = mktype(inner_type, refs)
 
 	def __str__(self):
 		if type(self.inner_type) == str:
-			return "maybe %s" % self.inner_type
+			return "%s %s" % (self.ap_name, self.inner_type)
 		else:
-			return "maybe (%s)" % str(self.inner_type)
+			return "%s (%s)" % (self.ap_name, str(self.inner_type))
+
+class MaybeType(ApType):
+	def __init__(self, inner_type, refs):
+		ApType.__init__(self, inner_type, refs)
+		self.ap_name = "maybe"
+
+class UniverseType(ApType):
+	def __init__(self, inner_type, refs):
+		ApType.__init__(self, inner_type, refs)
+		self.ap_name = "universe"
 
 class Builtin(Leaf):
 	def __init__(self, type=None, *args, **kwargs):

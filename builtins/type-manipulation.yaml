@@ -4,34 +4,110 @@ entries:
 - id: 2528
   name: get_maybe_type_content_type
   type:
-  - a: universe 0
-  - result: {maybe: universe 0}
+  - a: {universe: 0}
+  - result: {maybe: {universe: 0}}
 
 - id: 2080
   name: get_function_type_parameter
   type:
-  - a: universe 0
-  - result: {maybe: universe 0}
+  - a: {universe: 0}
+  - result: {maybe: {universe: 0}}
 
 - id: 2112
   name: get_function_type_result
   type:
-  - a: universe 0
-  - result: universe 0
-  - result: {maybe: universe 0}
+  - a: {universe: 0}
+  - result: {universe: 0}
+  - result: {maybe: {universe: 0}}
 
 - id: 2144
   name: get_sigma_type_field_type
   type:
-  - a: universe 0
-  - result: {maybe: universe 0}
+  - a: {universe: 0}
+  - result: {maybe: {universe: 0}}
 
 - id: 2176
   name: get_sigma_type_successor
   type:
-  - a: universe 0
-  - b: universe 0
+  - a: {universe: 0}
+  - b: {universe: 0}
   - result:
-      maybe:
-      - _1: b
-      - _2: universe 0
+      maybe: [{_: b}, {_: {universe: 0}}]
+
+- id: 2208
+  name: get_named_type_content_type
+  type:
+  - a: {universe: 0}
+  - result: {maybe: {universe: 0}}
+
+- id: 2240
+  name: get_universe_type_level
+  type:
+  - a: {universe: 0}
+  - result: {maybe: nat64}
+
+- id: 2256
+  name: get_satisfies_type_supertype
+  type:
+  - a: {universe: 0}
+  - result: {maybe: {universe: 0}}
+
+- id: 2257
+  name: get_satisfies_type_predicate
+  type:
+  - a: {universe: 0}
+  - result:
+      maybe: [{_: a}, {_: bool}]
+
+- id: 2272
+  name: make_sigma
+  type:
+  - a: {universe: 0}
+  - b: [{_: a}, {_: {universe: 0}}]
+  - result: {universe: 0}
+
+- id: 2304
+  name: make_name
+  type:
+  - a: {universe: 0}
+  - result: {universe: 0}
+
+- id: 2496
+  name: make_maybe_type
+  type:
+  - a: {universe: 0}
+  - result: {universe: 0}
+
+- id: 2368
+  name: make_function_type
+  type:
+  - a: {universe: 0}
+  - b: {universe: 0}
+  - result: {universe: 0}
+
+- id: 2336
+  name: make_named_value
+  type:
+  - a: {universe: 0}
+  - b: name
+  - result: {universe: 0}
+
+- id: 2400
+  name: make_sigma_type
+  type:
+  - a: {universe: 0}
+  - b: [{_: a}, {_: {universe: 0}}]
+  - result: {universe: 0}
+
+- id: 2432
+  name: make_named_type
+  type:
+  - a: {universe: 0}
+  - b: name
+  - result: {universe: 0}
+
+- id: 2464
+  name: make_universe_type
+  type:
+  - level: nat64
+  - result: {universe: level}

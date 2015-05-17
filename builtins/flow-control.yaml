@@ -4,7 +4,7 @@ entries:
 - id: 0
   name: if_bool
   type:
-  - a: universe 0
+  - a: {universe: 0}
   - predicate: bool
   - consequent: a
   - alternative: a
