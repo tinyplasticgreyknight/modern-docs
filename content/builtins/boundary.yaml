@@ -1,2 +1,120 @@
 title: Boundary-value Builtins
-entries: []
+common:
+  semantics_min_bound: &min_bound |
+    Returns the minimum permitted value of this numeric type.
+  semantics_max_bound: &max_bound |
+    Returns the maximum permitted value of this numeric type.
+
+entries:
+
+- id: 1376
+  name: minimum_bound_int8
+  type:
+  - result: int8
+  semantics: *min_bound
+  fixed-value: -128
+
+- id: 1377
+  name: minimum_bound_int16
+  type:
+  - result: int16
+  semantics: *min_bound
+  fixed-value: -32768
+
+- id: 1378
+  name: minimum_bound_int32
+  type:
+  - result: int32
+  semantics: *min_bound
+  fixed-value: -2147483648
+
+- id: 1379
+  name: minimum_bound_int64
+  type:
+  - result: int64
+  semantics: *min_bound
+  fixed-value: -9223372036854775808
+
+- id: 1380
+  name: minimum_bound_nat8
+  type:
+  - result: nat8
+  semantics: *min_bound
+  fixed-value: 0
+
+- id: 1381
+  name: minimum_bound_nat16
+  type:
+  - result: nat16
+  semantics: *min_bound
+  fixed-value: 0
+
+- id: 1382
+  name: minimum_bound_nat32
+  type:
+  - result: nat32
+  semantics: *min_bound
+  fixed-value: 0
+
+- id: 1383
+  name: minimum_bound_nat64
+  type:
+  - result: nat64
+  semantics: *min_bound
+  fixed-value: 0
+
+- id: 1408
+  name: maximum_bound_int8
+  type:
+  - result: int8
+  semantics: *max_bound
+  fixed-value: 127
+
+- id: 1409
+  name: maximum_bound_int16
+  type:
+  - result: int16
+  semantics: *max_bound
+  fixed-value: 32767
+
+- id: 1410
+  name: maximum_bound_int32
+  type:
+  - result: int32
+  semantics: *max_bound
+  fixed-value: 2147483647
+
+- id: 1411
+  name: maximum_bound_int64
+  type:
+  - result: int64
+  semantics: *max_bound
+  fixed-value: 9223372036854775807
+
+- id: 1412
+  name: maximum_bound_nat8
+  type:
+  - result: nat8
+  semantics: *max_bound
+  fixed-value: 255
+
+- id: 1413
+  name: maximum_bound_nat16
+  type:
+  - result: nat16
+  semantics: *max_bound
+  fixed-value: 65535
+
+- id: 1414
+  name: maximum_bound_nat32
+  type:
+  - result: nat32
+  semantics: *max_bound
+  fixed-value: 4294967295
+
+- id: 1415
+  name: maximum_bound_nat64
+  type:
+  - result: nat64
+  semantics: *max_bound
+  fixed-value: 18446744073709551615

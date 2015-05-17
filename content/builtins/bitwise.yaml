@@ -1,2 +1,194 @@
 title: Bitwise Operation Builtins
-entries: []
+entries:
+
+- id: 1440
+  name: shift_left_int8
+
+- id: 1441
+  name: shift_left_int16
+
+- id: 1442
+  name: shift_left_int32
+
+- id: 1443
+  name: shift_left_int64
+
+- id: 1444
+  name: shift_left_nat8
+
+- id: 1445
+  name: shift_left_nat16
+
+- id: 1456
+  name: shift_left_nat32
+
+- id: 1457
+  name: shift_left_nat64
+
+- id: 1472
+  name: shift_right_int8
+
+- id: 1473
+  name: shift_right_int16
+
+- id: 1474
+  name: shift_right_int32
+
+- id: 1475
+  name: shift_right_int64
+
+- id: 1476
+  name: shift_right_nat8
+
+- id: 1477
+  name: shift_right_nat16
+
+- id: 1478
+  name: shift_right_nat32
+
+- id: 1479
+  name: shift_right_nat64
+
+- id: 1504
+  name: rotate_left_int8
+
+- id: 1505
+  name: rotate_left_int16
+
+- id: 1506
+  name: rotate_left_int32
+
+- id: 1507
+  name: rotate_left_int64
+
+- id: 1508
+  name: rotate_left_nat8
+
+- id: 1509
+  name: rotate_left_nat16
+
+- id: 1510
+  name: rotate_left_nat32
+
+- id: 1511
+  name: rotate_left_nat64
+
+- id: 1536
+  name: rotate_right_int8
+
+- id: 1537
+  name: rotate_right_int16
+
+- id: 1538
+  name: rotate_right_int32
+
+- id: 1539
+  name: rotate_right_int64
+
+- id: 1540
+  name: rotate_right_nat8
+
+- id: 1541
+  name: rotate_right_nat16
+
+- id: 1542
+  name: rotate_right_nat32
+
+- id: 1543
+  name: rotate_right_nat64
+
+- id: 1568
+  name: bit_and_int8
+
+- id: 1569
+  name: bit_and_int16
+
+- id: 1570
+  name: bit_and_int32
+
+- id: 1571
+  name: bit_and_int64
+
+- id: 1572
+  name: bit_and_nat8
+
+- id: 1573
+  name: bit_and_nat16
+
+- id: 1574
+  name: bit_and_nat32
+
+- id: 1575
+  name: bit_and_nat64
+
+- id: 1600
+  name: bit_or_int8
+
+- id: 1601
+  name: bit_or_int16
+
+- id: 1602
+  name: bit_or_int32
+
+- id: 1603
+  name: bit_or_int64
+
+- id: 1604
+  name: bit_or_nat8
+
+- id: 1605
+  name: bit_or_nat16
+
+- id: 1606
+  name: bit_or_nat32
+
+- id: 1607
+  name: bit_or_nat64
+
+- id: 1632
+  name: bit_xor_int8
+
+- id: 1633
+  name: bit_xor_int16
+
+- id: 1634
+  name: bit_xor_int32
+
+- id: 1635
+  name: bit_xor_int64
+
+- id: 1636
+  name: bit_xor_nat8
+
+- id: 1637
+  name: bit_xor_nat16
+
+- id: 1638
+  name: bit_xor_nat32
+
+- id: 1639
+  name: bit_xor_nat64
+
+- id: 1664
+  name: bit_not_int8
+
+- id: 1665
+  name: bit_not_int16
+
+- id: 1666
+  name: bit_not_int32
+
+- id: 1667
+  name: bit_not_int64
+
+- id: 1668
+  name: bit_not_nat8
+
+- id: 1669
+  name: bit_not_nat16
+
+- id: 1670
+  name: bit_not_nat32
+
+- id: 1671
+  name: bit_not_nat64

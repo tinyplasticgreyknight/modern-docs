@@ -142,9 +142,10 @@ class SigmaType(ApType2ary):
 AP_TYPES['sigma'] = SigmaType
 
 class Builtin(Leaf):
-	def __init__(self, ntype=None, *args, **kwargs):
+	def __init__(self, ntype=None, fixed_value=None, *args, **kwargs):
 		Leaf.__init__(self, *args, **kwargs)
 		self.type = None
+		self.fixed_value = fixed_value
 		if ntype is not None:
 			self.type = TypeWithNames(ntype)
 
@@ -158,6 +159,8 @@ class Builtin(Leaf):
 				stream.write("  - *%s* : ``%s``\n" % (param.name, str(param.type)))
 				stream.write("\n")
 			stream.write("* **Result:** ``%s``\n" % str(self.type.result))
+		if self.fixed_value is not None:
+			stream.write("* **Fixed Value:** ``%s``\n" % str(self.fixed_value))
 
 class Category(object):
 	def __init__(self, title, name=None, toc_depth=1, is_root=False, use_intro=None):

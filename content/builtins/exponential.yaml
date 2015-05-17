@@ -24,12 +24,14 @@ entries:
   - result: float32
   semantics: &pi |
     Returns the value of :math:`\pi`.
+  fixed-value: 3.141592653589793
 
 - id: 545
   name: pi_float64
   type:
   - result: float64
   semantics: *pi
+  fixed-value: 3.141592653589793
 
 - id: 576
   name: square_root_float32
