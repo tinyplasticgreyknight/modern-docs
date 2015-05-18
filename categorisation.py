@@ -5,7 +5,7 @@ from verify import *
 
 AP_TYPES = {}
 
-def mktype(ntype, refs):
+def mktype(ntype, refs, visual="haskell"):
 	if type(ntype) == str or type(ntype) == int:
 		verify_type(str(ntype), refs)
 		return str(ntype)
@@ -17,7 +17,11 @@ def mktype(ntype, refs):
 				return ctor(ntype[ctor_name], refs)
 		raise TypeError("didn't recognise ap-type %s" % repr(ntype))
 	elif type(ntype) == list:
-		return TypeWithNames(ntype, refs)
+		if visual == "haskell":
+			return TypeWithNames(ntype, refs)
+		elif visual == "C":
+			typ = CTypeWithNames(ntype, refs)
+			return typ
 	else:
 		raise TypeError("didn't recognise type %s (%s)" % (repr(ntype), type(ntype)))
 
@@ -51,23 +55,26 @@ class Leaf(object):
 		stream.write("%s\n" % self.semantics)
 
 class NamedParam(object):
-	def __init__(self, name, ntype, refs=None):
+	def __init__(self, name, ntype, refs=None, visual="haskell"):
 		if refs is None: refs = []
 		self.name = name
-		self.type = mktype(ntype, refs)
+		self.type = mktype(ntype, refs, visual)
 
 class TypeWithNames(object):
-	def __init__(self, yaml, refs=None):
+	def __init__(self, yaml, refs=None, visual="haskell"):
 		if refs is None: refs = []
 		self.terms = []
 		self.params = []
 		self.result = None
+		self.read_yaml(yaml, refs, visual)
+
+	def read_yaml(self, yaml, refs, visual):
 		for term in yaml:
 			assert(len(term) == 1)
 			name = list(term.keys())[0]
 			ptype = term[name]
 			refs.append(name)
-			param = NamedParam(name, ptype, refs=refs)
+			param = NamedParam(name, ptype, refs=refs, visual=visual)
 			self.terms.append(param)
 			if name == "result":
 				self.result = param.type
@@ -84,10 +91,28 @@ class TypeWithNames(object):
 				vterms.append("(%s)" % str(ttyp))
 		return " -> ".join(vterms)
 
+class CTypeWithNames(TypeWithNames):
+	def __init__(self, yaml, refs=None, visual="C"):
+		TypeWithNames.__init__(self, yaml, refs, visual)
+		self.func_name = "(*)"
+
+	def __str__(self):
+		if len(self.params) == 0:
+			return str(self.result)
+		vterms = []
+		for term in self.params:
+			ttyp = term.type
+			if (type(ttyp) == str) or isinstance(ttyp, ApType):
+				vterms.append("%s %s" % (str(ttyp), term.name))
+			else:
+				vterms.append("(%s)" % str(ttyp))
+		param_str = ", ".join(vterms)
+		return "%s %s(%s)" % (str(self.result), self.func_name, param_str)
+
 class ApType(object):
-	def __init__(self, inner_type, refs):
+	def __init__(self, inner_type, refs, visual="haskell"):
 		self.ap_name = None
-		self.inner_type = mktype(inner_type, refs)
+		self.inner_type = mktype(inner_type, refs, visual)
 
 	def str_interior_part(self, obj):
 		if type(obj) == str:
@@ -112,6 +137,30 @@ class UniverseType(ApType):
 		ApType.__init__(self, inner_type, refs)
 		self.ap_name = "universe"
 AP_TYPES['universe'] = UniverseType
+
+class PointerType(ApType):
+	def __init__(self, inner_type, refs):
+		ApType.__init__(self, inner_type, refs, visual="C")
+		self.ap_name = "ptr"
+
+	def __str__(self):
+		return "%s *" % self.inner_type
+AP_TYPES['ptr'] = PointerType
+
+class FunctionPointerType(ApType):
+	def __init__(self, inner_type, refs):
+		ApType.__init__(self, inner_type, refs, visual="C")
+		self.ap_name = "funcptr"
+
+	def __str__(self):
+		return str(self.inner_type)
+AP_TYPES['funcptr'] = FunctionPointerType
+
+class StructType(ApType):
+	def __init__(self, inner_type, refs):
+		ApType.__init__(self, inner_type, refs, visual="C")
+		self.ap_name = "struct"
+AP_TYPES['struct'] = StructType
 
 class ApType2ary(ApType):
 	def __init__(self, inner_types, refs):
@@ -162,9 +211,13 @@ class Builtin(Leaf):
 		if self.fixed_value is not None:
 			stream.write("* **Fixed Value:** ``%s``\n" % str(self.fixed_value))
 
-class CFunction(Leaf):
+class CFunction(Builtin):
 	def __init__(self, name, *args, **kwargs):
-		Leaf.__init__(self, None, name, *args, **kwargs)
+		Builtin.__init__(self, ident=None, name=name, ntype=None, *args, **kwargs)
+
+	def set_type(self, ntype):
+		self.type = ntype
+		self.type.func_name = self.name
 
 	def write_synopsis(self, stream):
 		write_rest_header(stream, "Synopsis", kind="-")

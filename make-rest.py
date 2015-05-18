@@ -5,6 +5,7 @@ from categorisation import *
 from gather import *
 from funcs import *
 from verify import *
+from clibrary import parse_library_header, apply_types_for_c_functions
 
 MAIN_REPO_ROOT = "../modern-data"
 CONTENT_DIR = "content"
@@ -24,6 +25,8 @@ def gather_docs(mask):
 	root.name = None
 	root.is_root = True
 	#root.toc_depth = 2
+	ast = parse_library_header(os.path.join(MAIN_REPO_ROOT, "C", "library", "modern.h"))
+	apply_types_for_c_functions(root, ast)
 	return root
 
 def mask():

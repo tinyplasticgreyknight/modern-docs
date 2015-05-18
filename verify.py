@@ -19,11 +19,25 @@ PRIMITIVE_TYPES = [
 	"[0-9]+",
 ]
 
-for i in range(len(PRIMITIVE_TYPES)):
-	PRIMITIVE_TYPES[i] = re.compile("^%s$" % PRIMITIVE_TYPES[i])
+C_PRIMITIVE_TYPES = [
+	"void",
+]
+
+C_LIBRARY_TYPES = [
+	"modern_library",
+	"modern_error_handler",
+	"modern_allocator",
+	"modern_node_representation",
+]
+
+PERMITTED_TYPES = []
+
+for tlist in [PRIMITIVE_TYPES, C_PRIMITIVE_TYPES, C_LIBRARY_TYPES]:
+	for name in tlist:
+		PERMITTED_TYPES.append(re.compile("^%s$" % name))
 
 def verify_type(supposed, refs):
-	for pattern in PRIMITIVE_TYPES:
+	for pattern in PERMITTED_TYPES:
 		if pattern.match(supposed):
 			return True
 	if supposed in refs:
