@@ -1,1 +1,10 @@
 title: Semantics
+order:
+- overview
+- scoping
+- cyclic-structures
+- mutation
+- evaluation
+- canonical-form
+- hashing
+- values-and-types

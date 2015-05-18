@@ -1,0 +1,10 @@
+Cyclic Structures
+=================
+
+Cyclic structures, both at the type level and at the value level, can be created with inductive families and recursive lets - these two mechanisms are similar to each other, with the one being for types and the other for values. The details of how this is done are left to a later chapter. It is enough to know that the details of how these mechanisms are used do in fact become part of a modern node's identity. That is, they affect how types are canonicalized, which means that you have a different type if you insert the inductive family into the structure at a different place. Canonicalization does not apply to values (except for values which are part of types), so the fact that the details of a recursive let also affect the node's identity is not important in most situations.
+
+It would be conceivable for nodes As with the scope issue, the node-based portion of the library hides the issue of flattening cyclic structures from the client code, while the stream-based portion exposes it and places the burden on the client. However, this hiding cannot be complete, so it is important to be aware of its semantics.
+
+Cycles will be automatically broken by introducing the appropriate constructs at the time that they need to be serialized, if they have not already been; cycle-breaking can also be introduced manually. Thus users can build up cyclic structures through mutation and expect serialization and deserialization of them to just work, or they can use inductive families and recursive lets directly, and that will also work.
+
+It's worth noting in passing that it is bad style but technically possible in some situations to use an inductive family in defining values, and to use a recursive let in defining types. This is not actually a necessary consequence of the ability to use types and values interchangeably in other situations, but it is certainly consistent with that design and makes more sense in that light.

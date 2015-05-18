@@ -176,6 +176,7 @@ class Category(object):
 		self.name = name
 		self.toc_depth = toc_depth
 		self.is_root = is_root
+		self.has_own_header = False
 		self.children = []
 		self.leaves = []
 		self.intro_text = None
@@ -190,6 +191,9 @@ class Category(object):
 
 	def add_leaf(self, leaf):
 		self.leaves.append(leaf)
+
+	def toc_entry(self):
+		return "%s/index" % self.name
 
 	def create_tree(self, path_prefix):
 		self.create_index(path_prefix)
@@ -233,5 +237,18 @@ class RawChunk(Category):
 		Category.__init__(self, name, name)
 		self.name = name
 		self.title = name
+		self.toc_depth = 0
+		self.has_own_header = True
 		with io.open(filename, 'r') as f:
 			self.contents = f.read()
+
+	def create_tree(self, path_prefix):
+		directory = self.dirname(path_prefix)
+		ensure_dir_exists(os.path.dirname(directory))
+		filename = directory + ".rst"
+
+		with io.open(filename, 'w') as f:
+			write_index(f, self)
+
+	def toc_entry(self):
+		return self.name

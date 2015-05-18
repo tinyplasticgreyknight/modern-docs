@@ -1,0 +1,12 @@
+title: Values and Types
+order:
+- booleans
+- maybes
+- integers
+- naturals
+- floats
+- text
+- blobs
+- aggregate
+- builtins
+- predefined

@@ -12,25 +12,27 @@ def write_rest_header(stream, text, kind="="):
 	stream.write("\n")
 
 def write_index(stream, category):
-	write_rest_header(stream, category.title, "=")
+	if not category.has_own_header:
+		write_rest_header(stream, category.title, "=")
 
 	if category.intro_text is not None:
 		stream.write(category.intro_text)
 		stream.write("\n")
 
-	stream.write(".. toctree::\n")
-	stream.write("   :maxdepth: %d\n" % category.toc_depth)
-	stream.write("\n")
+	if category.toc_depth > 0:
+		stream.write(".. toctree::\n")
+		stream.write("   :maxdepth: %d\n" % category.toc_depth)
+		stream.write("\n")
 
 	for child in category.ordered_children():
-		stream.write("   %s/index\n" % child.name)
+		stream.write("   %s\n" % child.toc_entry())
 
 	for leaf in category.leaves:
 		stream.write("   %s\n" % leaf.name)
 
 	if category.contents is not None:
 		stream.write(category.contents)
-		strem.write("\n")
+		stream.write("\n")
 
 	if category.is_root:
 		write_indices_and_tables(stream)
