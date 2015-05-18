@@ -1,0 +1,47 @@
+title: Simple Values
+entries:
+
+- id: 1
+  name: bool_value_false
+
+- id: 2
+  name: bool_value_true
+
+- id: 3
+  name: ordering_value_less
+
+- id: 4
+  name: ordering_value_equal
+
+- id: 5
+  name: ordering_value_greater
+
+- id: 8
+  name: int8_value
+
+- id: 9
+  name: int16_value
+
+- id: 10
+  name: int32_value
+
+- id: 11
+  name: int64_value
+
+- id: 12
+  name: nat8_value
+
+- id: 13
+  name: nat16_value
+
+- id: 14
+  name: nat32_value
+
+- id: 15
+  name: nat64_value
+
+- id: 16
+  name: float32_value
+
+- id: 17
+  name: float64_value

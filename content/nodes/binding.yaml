@@ -1,0 +1,17 @@
+title: Binding-related Nodes
+entries:
+
+- id: 38
+  name: function_type
+
+- id: 44
+  name: lambda
+
+- id: 46
+  name: type_family
+
+- id: 47
+  name: let
+
+- id: 48
+  name: backreference

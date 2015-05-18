@@ -1,0 +1,14 @@
+title: Fundamentals
+entries:
+
+- id: 42
+  name: universe_type
+
+- id: 43
+  name: satisfies_type
+
+- id: 45
+  name: apply
+
+- id: 49
+  name: builtin

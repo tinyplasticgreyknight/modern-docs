@@ -1,0 +1,26 @@
+title: Blobs and Names
+entries:
+
+- id: 18
+  name: utf8_value
+
+- id: 19
+  name: blob_value
+
+- id: 21
+  name: name_value
+
+- id: 22
+  name: named_value
+
+- id: 36
+  name: utf8_type
+
+- id: 37
+  name: blob_type
+
+- id: 40
+  name: name_type
+
+- id: 41
+  name: named_type

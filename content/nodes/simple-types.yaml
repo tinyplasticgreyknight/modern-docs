@@ -1,0 +1,38 @@
+title: Simple Types
+entries:
+
+- id: 23
+  name: bool_type
+
+- id: 24
+  name: ordering_type
+
+- id: 26
+  name: int8_type
+
+- id: 27
+  name: int16_type
+
+- id: 28
+  name: int32_type
+
+- id: 29
+  name: int64_type
+
+- id: 30
+  name: nat8_type
+
+- id: 31
+  name: nat16_type
+
+- id: 32
+  name: nat32_type
+
+- id: 33
+  name: nat64_type
+
+- id: 34
+  name: float32_type
+
+- id: 35
+  name: float64_type
