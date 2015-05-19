@@ -35,7 +35,7 @@ def mask():
 		with io.open(MASK_FILE, 'r') as f:
 			for line in f:
 				masks.append(os.path.normpath(line.strip()))
-	except IOException:
+	except IOError:
 		pass
 	return masks
 
