@@ -52,9 +52,10 @@ def verify_consistency(cat):
 		raise KeyError("ident %d is assigned to both %s and %s" % (leaf.ident, existing.name, leaf.name))
 	def _verify_name(leaf, leaf_names):
 		if leaf.name is None: return
+		if leaf.ident is None: return
 		existing = leaf_names.get(leaf.name)
 		if existing is None: return
-		raise KeyError("name %s is assigned to both %d and %d" % str(leaf.name), existing.ident, leaf.ident)
+		raise KeyError("name %s is assigned to more than one thing" % leaf.name)
 
 	def _verify(cat, idents, leaf_names):
 		for leaf in cat.leaves:

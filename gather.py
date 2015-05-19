@@ -8,6 +8,7 @@ def gather_directory(title, path_prefix, dirname, gather_leaf=None, mask=None):
 	scan_path = os.path.join(path_prefix, dirname)
 	if (mask is not None):
 		if os.path.normpath(scan_path) in mask:
+			print("masked: %s" % scan_path)
 			return cat
 	if gather_leaf is None:
 		if dirname == "builtins":
@@ -51,7 +52,14 @@ def gather_yaml_category(yamlfile, gather_leaf):
 	with io.open(yamlfile, 'r') as f:
 		doc = yaml.load(f)
 		name = doc.get('name', file_name_token(yamlfile))
-		cat = Category(title=doc['title'], name=name)
+		title = doc['title']
+		struct_name = doc.get('documents-struct')
+		cat = None
+		if struct_name is not None:
+			cat = CStructCategory(title=title, name=struct_name)
+			gather_leaf = gather_yaml_c_structfield
+		else:
+			cat = Category(title=title, name=name)
 		for leaf in doc['entries']:
 			cat.add_leaf(gather_leaf(leaf))
 		return cat
@@ -65,5 +73,12 @@ def gather_yaml_builtin(yaml):
 	return leaf
 
 def gather_yaml_c(yaml):
-	leaf = CFunction(name=yaml['name'])
+	return gather_yaml_c_func(yaml)
+
+def gather_yaml_c_func(yaml):
+	leaf = CFunction(name=yaml['name'], semantics=yaml.get('semantics'))
+	return leaf
+
+def gather_yaml_c_structfield(yaml):
+	leaf = CStructField(name=yaml['name'], semantics=yaml.get('semantics'))
 	return leaf

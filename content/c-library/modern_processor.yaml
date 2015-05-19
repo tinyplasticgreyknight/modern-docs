@@ -1,0 +1,8 @@
+title: Processor Callbacks
+documents-struct: modern_processor
+entries:
+
+- name: initialize
+- name: finalize
+- name: step
+- name: run

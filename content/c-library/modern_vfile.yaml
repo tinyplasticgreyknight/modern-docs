@@ -1,0 +1,6 @@
+title: Virtual-file Callbacks
+documents-struct: modern_vfile
+entries:
+
+- name: read
+- name: write

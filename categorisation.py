@@ -211,17 +211,28 @@ class Builtin(Leaf):
 		if self.fixed_value is not None:
 			stream.write("* **Fixed Value:** ``%s``\n" % str(self.fixed_value))
 
-class CFunction(Builtin):
+class CCommon(Builtin):
 	def __init__(self, name, *args, **kwargs):
 		Builtin.__init__(self, ident=None, name=name, ntype=None, *args, **kwargs)
 
 	def set_type(self, ntype):
 		self.type = ntype
-		self.type.func_name = self.name
 
 	def write_synopsis(self, stream):
 		write_rest_header(stream, "Synopsis", kind="-")
 		stream.write("* **Name:** ``%s``\n" % self.name)
+
+class CFunction(CCommon):
+	def __init__(self, *args, **kwargs):
+		CCommon.__init__(self, *args, **kwargs)
+
+	def set_type(self, ntype):
+		CCommon.set_type(self, ntype)
+		self.type.func_name = self.name
+
+class CStructField(CCommon):
+	def __init__(self, *args, **kwargs):
+		CCommon.__init__(self, *args, **kwargs)
 
 class Category(object):
 	def __init__(self, title, name=None, toc_depth=1, is_root=False, use_intro=None):
@@ -305,3 +316,7 @@ class RawChunk(Category):
 
 	def toc_entry(self):
 		return self.name
+
+class CStructCategory(Category):
+	def __init__(self, title, name, refs=None, visual="C"):
+		Category.__init__(self, title, name)

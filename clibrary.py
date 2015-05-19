@@ -1,6 +1,6 @@
 import io
 import pycparser
-from categorisation import CFunction, CTypeWithNames, FunctionPointerType
+from categorisation import CFunction, CStructField, CTypeWithNames, FunctionPointerType
 
 FAKE_TYPES = [
 	"size_t",
@@ -26,19 +26,24 @@ def parse_library_header(filename):
 			if (line != "") and (line[0] != '#'): break
 		return parser.parse(text + f.read(), filename)
 
-def apply_types_for_c_functions(category, ast):
+def apply_types_for_c(category, ast):
 	for leaf in category.leaves:
 		if isinstance(leaf, CFunction):
-			apply_type(leaf, ast)
+			apply_func_type(leaf, ast)
+		elif isinstance(leaf, CStructField):
+			apply_field_type(leaf, ast)
 	for child in category.children:
-		apply_types_for_c_functions(child, ast)
+		apply_types_for_c(child, ast)
 
-def apply_type(cleaf, ast):
+def apply_func_type(cleaf, ast):
 	node = find_func_decl(cleaf.name, ast)
 	if node is None:
 		raise KeyError("cannot find function %s" % cleaf.name)
 	sig = signature(node)
 	cleaf.set_type(CTypeWithNames(sig))
+
+def apply_field_type(cleaf, ast):
+	cleaf.set_type(CTypeWithNames([{'result': "void"}]))
 
 def find_func_decl(name, root):
 	for _child in root.children():

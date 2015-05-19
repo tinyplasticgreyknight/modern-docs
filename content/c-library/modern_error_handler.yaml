@@ -1,0 +1,13 @@
+title: Error-handling Callbacks
+documents-struct: modern_error_handler
+entries:
+
+- name: memory
+- name: type_mismatch
+- name: universe_level_overflow
+- name: buffer_index
+- name: not_applicable
+- name: non_numeric_float
+- name: builtin_identifier
+- name: usage
+- name: data

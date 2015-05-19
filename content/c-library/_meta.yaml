@@ -2,3 +2,11 @@ title: C Library
 order:
 - library-instances
 - memory-management
+- modern_node_representation
+- modern_vfile
+- modern_stream
+- modern_error_handler
+- modern_processor
+- modern_process
+- modern_allocator
+- types
