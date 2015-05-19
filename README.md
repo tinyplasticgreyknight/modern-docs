@@ -23,7 +23,7 @@ We also do some validation.  Right now the only validations are:
 ## You will need
 * Python 3
 * `pip install pycparser`
-* `pip install yaml`
+* `pip install pyyaml`
 * [Sphinx](http://sphinx-doc.org/latest/install.html) documentation generator
 * the `modern.h` header from the [Modern Data repository](https://github.com/IreneKnapp/modern-data) (this file is parsed to extract some type signatures)
 
