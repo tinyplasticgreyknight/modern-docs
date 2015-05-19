@@ -2,12 +2,13 @@
 This is a project to provide more detailed documentation for [Modern Data](https://github.com/IreneKnapp/modern-data).
 
 ## Invocation
-You will probably first need to modify the `MAIN_REPO_ROOT` path in `make-rest.py`: this should point to the `modern.h` file from the Modern Data repository.
+You will probably first need to modify the `modern-header-file` path in `config.yaml`: this should point to the `modern.h` file from the Modern Data repository.
 You should be able to just issue a `make html` or `make latexpdf` command to generate the documentation.
 Output should end up in the `build` directory.
 
 ### Subcommands (for hacking purposes, or in case make isn't cooperating):
-* `python make-rest.py rstsource` will generate the ReST documentation in the `rstsource` directory.  This is used as input by Sphinx, but you could read it directly if you want.  Or, perhaps you can use it as input to another tool!
+* `python make-rest.py` will generate the ReST documentation in the `rstsource` directory.  This is used as input by Sphinx, but you could read it directly if you want.  Or, perhaps you can use it as input to another tool!
+* * `config.yaml` is used to provide some control over how this script works.  The `mask-file` setting is particularly useful for hacking: the named file contains one path per line (e.g. `content/builtins`), and serves to exclude those entries from the build.  This can reduce build times while you're debugging.
 * `sphinx-build -b html -d build/doctrees rstsource build/html` will generate HTML documentation from the ReST files.
 * `sphinx-build -b html -D latex_paper_size=a4 -d build/doctrees rstsource build/latex` will generate LaTeX documentation from the ReST files.  You can run these through `pdflatex` to get a PDF file, or just run `make all-pdf` in the `build/latex` directory.
 

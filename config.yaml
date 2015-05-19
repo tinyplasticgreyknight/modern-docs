@@ -1,0 +1,5 @@
+modern-header-file: ../modern-data/C/library/modern.h
+content-dir: content
+source-dir: rstsource
+sphinx-conf: sphinx-conf.py
+mask-file: mask.user
