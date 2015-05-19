@@ -13,7 +13,11 @@ import builder
 def regen(config):
 	masks = load_masks(config['mask-file'])
 	builder.progress("gathering data")
-	root = gather_docs(masks, config['content-dir'], config['modern-header-file'])
+	root = gather_docs(masks, config['content-dir'])
+	builder.progress("examining header")
+	ast = parse_library_header(config['modern-header-file'])
+	builder.progress("applying extracted C types")
+	apply_types_for_c(root, ast)
 	builder.progress("verifying consistency")
 	verify_docs(root)
 	builder.progress("creating ReST tree")
@@ -37,24 +41,24 @@ builder.create_simple("pseudoxml")
 
 @builder.mark
 def latex(config):
-	builder.build("regen", config)
+	builder.dependency("regen", config)
 
 	latex_paper_size = "latex_paper_size=%s" % config['latex-paper-size']
 	builder.sphinx("latex", config, "-D", latex_paper_size)
 
 @builder.mark
 def pdf(config):
-	builder.build("latex", config)
+	builder.dependency("latex", config)
 	builder.submake("latex", "all-pdf", config)
 
 @builder.mark
 def pdfja(config):
-	builder.build("latex", config)
+	builder.dependency("latex", config)
 	builder.submake("latex", "all-pdf-ja", config)
 
 @builder.mark
 def info(config):
-	builder.build("texinfo", config)
+	builder.dependency("texinfo", config)
 	builder.submake("texinfo", "info", config)
 
 @builder.mark
@@ -83,13 +87,11 @@ def create_rest_tree(root, source_dir, sphinx_conf_filename):
 	ensure_dir_exists(os.path.join(source_dir, "_static"))
 	shutil.copy(sphinx_conf_filename, os.path.join(source_dir, "conf.py"))
 
-def gather_docs(mask, content_dir, header_filename):
+def gather_docs(mask, content_dir):
 	root = gather_directory(None, ".", content_dir, mask=mask)
 	root.name = None
 	root.is_root = True
 	#root.toc_depth = 2
-	ast = parse_library_header(header_filename)
-	apply_types_for_c(root, ast)
 	return root
 
 def load_masks(mask_filename):

@@ -4,6 +4,7 @@ import subprocess
 BUILDERS = {}
 
 def build(target, config):
+	report("building target [%s]", target)
 	builder = BUILDERS[target]
 	builder(config)
 
@@ -20,21 +21,20 @@ def note(msg, *values):
 
 def mark(f):
 	target = f.__name__
-	def _decorated(config):
-		report("building target [%s]", target)
-		f(config)
-	_decorated.__name__ = target
-	BUILDERS[target] = _decorated
-	return _decorated
+	BUILDERS[target] = f
+	return f
 
 def create_simple(target):
 	def _builder(config):
-		report("building target [%s]", target)
-		note("regenerating ReST files first")
-		build("regen", config)
+		dependency("regen", config)
 		sphinx(target, config)
 	_builder.__name__ = target
 	BUILDERS[target] = _builder
+
+def dependency(target, config):
+	report("building dependency [%s]", target)
+	builder = BUILDERS[target]
+	builder(config)
 
 def submake(build_subdir, target, config):
 	report("calling make [%s] for [%s]", target, build_subdir)
@@ -43,7 +43,7 @@ def submake(build_subdir, target, config):
 	subprocess.call([make, "-C", directory, target])
 
 def sphinx(target, config, *args):
-	report("building sphinx target [%s]", target)
+	report("calling sphinx builder [%s]", target)
 	doctrees = os.path.normpath("%s/doctrees" % config['build-dir'])
 	output_dir = os.path.normpath("%s/%s" % (config['build-dir'], target))
 	sphinx_build = config['sphinx-build-command']
