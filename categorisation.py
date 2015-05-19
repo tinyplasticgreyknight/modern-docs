@@ -215,7 +215,7 @@ class Builtin(Leaf):
 			stream.write("* **Parameters:**\n\n")
 			for param in self.type.params:
 				stream.write("  - *%s* : ``%s``\n" % (param.name, str(param.type)))
-				stream.write("\n")
+			stream.write("\n")
 			stream.write("* **Result:** ``%s``\n" % str(self.type.result))
 		if self.fixed_value is not None:
 			stream.write("* **Fixed Value:** ``%s``\n" % str(self.fixed_value))

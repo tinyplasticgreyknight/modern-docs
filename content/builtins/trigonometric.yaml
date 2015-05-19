@@ -7,16 +7,13 @@ common:
   - x: float64
   - result: float64
 
-intro: |
-  **TODO:** Are these angles measured in radians?
-
 entries:
 
 - id: 768
   name: sine_float32
   type: *trig_float32
   semantics: &sin |
-    Computes the sine of ``x``.
+    Computes the sine of ``x``, in radians.
 
 - id: 769
   name: sine_float64
@@ -27,7 +24,7 @@ entries:
   name: cosine_float32
   type: *trig_float32
   semantics: &cos |
-    Computes the cosine of ``x``.
+    Computes the cosine of ``x``, in radians.
 
 - id: 801
   name: cosine_float64
@@ -38,7 +35,7 @@ entries:
   name: tangent_float32
   type: *trig_float32
   semantics: &tan |
-    Computes the tangent of ``x``.
+    Computes the tangent of ``x``, in radians.
 
 - id: 833
   name: tangent_float64
@@ -49,7 +46,7 @@ entries:
   name: arcsine_float32
   type: *trig_float32
   semantics: &asin |
-    Computes the arcsine of ``x``, i.e. :math:`\sin^{-1}{x}`.
+    Computes the arcsine of ``x`` in radians, i.e. :math:`\sin^{-1}{x}`.
 
 - id: 865
   name: arcsine_float64
@@ -60,7 +57,7 @@ entries:
   name: arccosine_float32
   type: *trig_float32
   semantics: &acos |
-    Computes the arccosine of ``x``, i.e. :math:`\cos^{-1}{x}`.
+    Computes the arccosine of ``x`` in radians, i.e. :math:`\cos^{-1}{x}`.
 
 - id: 897
   name: arccosine_float64
@@ -71,7 +68,7 @@ entries:
   name: arctangent_float32
   type: *trig_float32
   semantics: &atan |
-    Computes the arctangent of ``x``, i.e. :math:`\tan^{-1}{x}`.
+    Computes the arctangent of ``x`` in radians, i.e. :math:`\tan^{-1}{x}`.
 
 - id: 929
   name: arctangent_float64
@@ -85,7 +82,7 @@ entries:
   - y: float32
   - result: float32
   semantics: &atan2 |
-    Computes the arctangent of the fraction ``x/y``, i.e. :math:`\tan^{-1}{\frac{x}{y}}`.
+    Computes the arctangent of the fraction ``x/y`` in radians, i.e. :math:`\tan^{-1}{\frac{x}{y}}`.
 
     This function returns a sensible value even if ``y`` is zero.
 
