@@ -14,6 +14,7 @@ def load_config():
 		return yaml.load(f.read())
 
 def main(target="regen"):
+	print("==== building target [%s] ====" % target)
 	builder.build(target, load_config())
 
 main(*sys.argv[1:])

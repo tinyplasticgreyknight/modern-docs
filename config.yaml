@@ -1,5 +1,8 @@
 modern-header-file: ../modern-data/C/library/modern.h
 content-dir: content
 source-dir: rstsource
+build-dir: build
 sphinx-conf: sphinx-conf.py
 mask-file: mask.user
+make-command: make
+sphinx-build-command: sphinx-build
