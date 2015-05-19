@@ -3,8 +3,9 @@ This is a project to provide more detailed documentation for [Modern Data](https
 
 ## Invocation
 You will probably first need to modify the `modern-header-file` path in `config.yaml`: this should point to the `modern.h` file from the Modern Data repository.
-You should be able to just issue a `./build.py html` or `./build.py pdf` command to generate the documentation.
 Output should end up in the `build` directory.
+
+`./build.py html` should generate the documentation.  You can also try `./build.py pdf` if you've got `pdflatex` present.
 
 ### Subcommands (for hacking purposes):
 * `./build.py regen` will generate the ReST documentation in the `rstsource` directory.  This is used as input by Sphinx, but you could read it directly if you want.  Or, perhaps you can use it as input to another tool!
