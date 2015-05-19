@@ -12,8 +12,11 @@ import builder
 @builder.mark
 def regen(config):
 	masks = load_masks(config['mask-file'])
+	builder.progress("gathering data")
 	root = gather_docs(masks, config['content-dir'], config['modern-header-file'])
+	builder.progress("verifying consistency")
 	verify_docs(root)
+	builder.progress("creating ReST tree")
 	create_rest_tree(root, config['rest-dir'], config['sphinx-conf'])
 
 builder.create_simple("html")

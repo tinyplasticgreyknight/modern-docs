@@ -11,6 +11,10 @@ def report(msg, *values):
 	formatted_msg = msg % values
 	print("==== %s ====" % formatted_msg)
 
+def progress(msg, *values):
+	formatted_msg = msg % values
+	print("---- %s ----" % formatted_msg)
+
 def note(msg, *values):
 	print(("note: " + msg) % values)
 
