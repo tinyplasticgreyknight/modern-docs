@@ -6,3 +6,4 @@ sphinx-conf: sphinx-conf.py
 mask-file: mask.user
 make-command: make
 sphinx-build-command: sphinx-build
+latex-paper-size: a4

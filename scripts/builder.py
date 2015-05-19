@@ -28,5 +28,5 @@ def sphinx(target, config, *args):
 	doctrees = os.path.normpath("%s/doctrees" % config['build-dir'])
 	output_dir = os.path.normpath("%s/%s" % (config['build-dir'], target))
 	sphinx_build = config['sphinx-build-command']
-	cmd = [sphinx_build, "-b", target] + list(*args) + ["-d", doctrees, config['source-dir'], output_dir]
+	cmd = [sphinx_build, "-b", target] + list(args) + ["-d", doctrees, config['source-dir'], output_dir]
 	subprocess.call(cmd)

@@ -35,7 +35,9 @@ builder.create_simple("pseudoxml")
 @builder.mark
 def latex(config):
 	builder.build("regen", config)
-	builder.sphinx("latex", config, ["-D", "latex_paper_size=a4"])
+
+	latex_paper_size = "latex_paper_size=%s" % config['latex-paper-size']
+	builder.sphinx("latex", config, "-D", latex_paper_size)
 
 @builder.mark
 def pdf(config):
