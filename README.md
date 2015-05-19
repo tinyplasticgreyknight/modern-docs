@@ -1,4 +1,4 @@
-# Modern-Data documentation project
+# Modern Data documentation project
 This is a project to provide more detailed documentation for [Modern Data](https://github.com/IreneKnapp/modern-data).
 
 ## Invocation

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Modern documentation build configuration file, created by
+# Modern Data documentation build configuration file, created by
 # sphinx-quickstart on Sat May 16 21:58:26 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -16,15 +16,15 @@ import sys
 import os
 
 # General information about the project.
-project = u'Modern'
+project = u'Modern Data'
 authors_list = [
 	u'Irene Knapp',
 	u'GreyKnight',
 ]
 copyright_year=2015
-project_short_desc=u'The Modern data/schema representation format.'
+project_short_desc=u'The Modern Data format.'
 
-docs_title=u"%s Data/Schema Format" % project
+docs_title=u"%s Format" % project
 authors_string = ', '.join(authors_list)
 copyright = u'%d %s' % (copyright_year, authors_string)
 
@@ -239,7 +239,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'modern', docs_title,
+    ('index', 'modern_data', docs_title,
      authors_list, 1)
 ]
 
