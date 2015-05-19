@@ -41,6 +41,7 @@ C_INCLUDED_TYPES = [
 	"FILE",
 ]
 
+# TODO: probably these can be loaded from modern.h
 C_LIBRARY_TYPES = [
 	"modern",
 	"modern_library",
