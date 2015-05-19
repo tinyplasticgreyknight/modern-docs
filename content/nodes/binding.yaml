@@ -2,10 +2,10 @@ title: Binding-related Nodes
 entries:
 
 - id: 38
-  name: function_type
+  name: lambda_type
 
 - id: 44
-  name: lambda
+  name: lambda_value
 
 - id: 46
   name: type_family
