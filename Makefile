@@ -53,7 +53,7 @@ clean:
 	rm -rf $(SOURCEDIR)/*
 
 rest:
-	$(PYTHON) make-rest.py
+	$(PYTHON) build.py
 
 html: rest
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
