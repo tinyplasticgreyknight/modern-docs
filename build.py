@@ -14,7 +14,16 @@ def load_config():
 		return yaml.load(f.read())
 
 def main(target="regen"):
-	print("==== building target [%s] ====" % target)
-	builder.build(target, load_config())
+	try:
+		builder.build(target, load_config())
+		builder.report("everything is okay")
+	except Exception as e:
+		import traceback
+		builder.report("something went wrong [%s]", e.__class__.__name__)
+		for earg in e.args:
+			print(earg)
+		builder.report("stack trace")
+		trace = sys.exc_info()[2]
+		traceback.print_tb(trace, None, sys.stdout)
 
 main(*sys.argv[1:])

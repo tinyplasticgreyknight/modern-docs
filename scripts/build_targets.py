@@ -11,10 +11,10 @@ import builder
 
 @builder.mark
 def regen(config):
-	masks = mask(config['mask-file'])
+	masks = load_masks(config['mask-file'])
 	root = gather_docs(masks, config['content-dir'], config['modern-header-file'])
 	verify_docs(root)
-	create_rest_tree(root, config['source-dir'], config['sphinx-conf'])
+	create_rest_tree(root, config['rest-dir'], config['sphinx-conf'])
 
 builder.create_simple("html")
 builder.create_simple("texinfo")
@@ -42,7 +42,7 @@ def latex(config):
 @builder.mark
 def pdf(config):
 	builder.build("latex", config)
-	builder.submake("latex", "all-pdf-ja", config)
+	builder.submake("latex", "all-pdf", config)
 
 @builder.mark
 def pdfja(config):
@@ -53,6 +53,21 @@ def pdfja(config):
 def info(config):
 	builder.build("texinfo", config)
 	builder.submake("texinfo", "info", config)
+
+@builder.mark
+def clean(config):
+	clean_dir(config['rest-dir'])
+	clean_dir(config['build-dir'])
+
+@builder.mark
+def showmasks(config):
+	masks = load_masks(config['mask-file'])
+	if len(masks) == 0:
+		print("No masks are loaded")
+		return
+	print("The following paths are masked:")
+	for mask in masks:
+		print("* %s" % mask)
 
 #=============================================================================
 
@@ -74,12 +89,14 @@ def gather_docs(mask, content_dir, header_filename):
 	apply_types_for_c(root, ast)
 	return root
 
-def mask(mask_filename):
-	masks = []
+def load_masks(mask_filename):
 	try:
 		with io.open(mask_filename, 'r') as f:
-			for line in f:
-				masks.append(os.path.normpath(line.strip()))
+			return [os.path.normpath(line.strip()) for line in f]
 	except IOError:
-		pass
-	return masks
+		# if file is not present, treat it as empty
+		return []
+
+def clean_dir(dir_name):
+	if os.path.isdir(dir_name):
+		shutil.rmtree(dir_name)

@@ -245,7 +245,7 @@ class CStructField(CCommon):
 		self.level += 1
 
 	def write_entry(self, stream):
-		write_struct_field_anchor(stream, self.struct_name, self.name)
+		stream.write("\n")
 		write_rest_header(stream, self.name, self.level)
 		self.write_synopsis(stream)
 		self.write_entry_extra(stream)

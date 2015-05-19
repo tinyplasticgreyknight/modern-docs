@@ -16,7 +16,8 @@ import sys
 import os
 
 # General information about the project.
-project = u'Modern Data'
+project_pretty = u'Modern Data'
+project = project_pretty.replace(' ', '_')
 authors_list = [
 	u'Irene Knapp',
 	u'GreyKnight',
@@ -24,7 +25,7 @@ authors_list = [
 copyright_year=2015
 project_short_desc=u'The Modern Data format.'
 
-docs_title=u"%s Format" % project
+docs_title=u"%s Format" % project_pretty
 authors_string = ', '.join(authors_list)
 copyright = u'%d %s' % (copyright_year, authors_string)
 
@@ -123,7 +124,7 @@ html_theme = 'default'
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-#html_title = None
+html_title = "%s v%s documentation" % (project_pretty, release)
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
@@ -254,7 +255,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', project, docs_title,
-   authors_string, project, project_short_desc,
+   authors_string, project_pretty, project_short_desc,
    'Miscellaneous'),
 ]
 
@@ -274,7 +275,7 @@ texinfo_documents = [
 # -- Options for Epub output ----------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = project
+epub_title = project_pretty
 epub_author = authors_string
 epub_publisher = authors_string
 epub_copyright = copyright

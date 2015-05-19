@@ -47,11 +47,18 @@ def write_index_toc(stream, category):
 def write_index_toc_struct(stream, category):
 	stream.write("| ``struct %s {``\n" % category.name)
 	for leaf in category.leaves:
-		stream.write("|\t``%s`` :ref:`%s_%s`;\n" % (str(leaf.type), category.name, leaf.name))
+		link = struct_field_link(category.name, leaf.name)
+		stream.write("|\t``%s`` %s ``;``\n" % (str(leaf.type), link))
 	stream.write("| ``}``\n")
 
+def struct_field_link(struct_name, field_name):
+	return "`%s`_" % anchor_name(struct_name, field_name)
+
 def write_struct_field_anchor(stream, struct_name, field_name):
-	stream.write("\n.. _%s_%s:\n\n" % (struct_name, field_name))
+	pass
+
+def anchor_name(struct_name, field_name):
+	return field_name
 
 def write_index_contents(stream, category):
 	if category.contents is not None:
