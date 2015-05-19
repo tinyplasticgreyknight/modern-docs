@@ -58,27 +58,29 @@ def gather_yaml_category(yamlfile, gather_leaf):
 		if struct_name is not None:
 			cat = CStructCategory(title=title, name=struct_name)
 			gather_leaf = gather_yaml_c_structfield
+			extra = struct_name
 		else:
 			cat = Category(title=title, name=name)
+			extra = None
 		for leaf in doc['entries']:
-			cat.add_leaf(gather_leaf(leaf))
+			cat.add_leaf(gather_leaf(leaf, extra))
 		return cat
 
-def gather_yaml_node(yaml):
+def gather_yaml_node(yaml, _):
 	leaf = Leaf(ident=yaml['id'], name=yaml['name'], semantics=yaml.get('semantics'))
 	return leaf
 
-def gather_yaml_builtin(yaml):
+def gather_yaml_builtin(yaml, _):
 	leaf = Builtin(ident=yaml['id'], name=yaml['name'], semantics=yaml.get('semantics'), ntype=yaml.get('type'), fixed_value=yaml.get('fixed-value'))
 	return leaf
 
-def gather_yaml_c(yaml):
-	return gather_yaml_c_func(yaml)
+def gather_yaml_c(yaml, _):
+	return gather_yaml_c_func(yaml, _)
 
-def gather_yaml_c_func(yaml):
+def gather_yaml_c_func(yaml, _):
 	leaf = CFunction(name=yaml['name'], semantics=yaml.get('semantics'))
 	return leaf
 
-def gather_yaml_c_structfield(yaml):
-	leaf = CStructField(name=yaml['name'], semantics=yaml.get('semantics'))
+def gather_yaml_c_structfield(yaml, struct_name):
+	leaf = CStructField(name=yaml['name'], struct_name=struct_name, semantics=yaml.get('semantics'))
 	return leaf

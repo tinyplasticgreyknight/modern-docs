@@ -21,18 +21,42 @@ PRIMITIVE_TYPES = [
 
 C_PRIMITIVE_TYPES = [
 	"void",
+	"int",
+	"float",
+	"double",
+	"char",
+]
+
+C_INCLUDED_TYPES = [
+	"size_t",
+	"ssize_t",
+	"int8_t",
+	"int16_t",
+	"int32_t",
+	"int64_t",
+	"uint8_t",
+	"uint16_t",
+	"uint32_t",
+	"uint64_t",
+	"FILE",
 ]
 
 C_LIBRARY_TYPES = [
+	"modern",
 	"modern_library",
 	"modern_error_handler",
 	"modern_allocator",
 	"modern_node_representation",
+	"modern_node_type",
+	"modern_hash",
+	"modern_stream",
+	"modern_vfile",
+	"modern_process",
 ]
 
 PERMITTED_TYPES = []
 
-for tlist in [PRIMITIVE_TYPES, C_PRIMITIVE_TYPES, C_LIBRARY_TYPES]:
+for tlist in [PRIMITIVE_TYPES, C_PRIMITIVE_TYPES, C_INCLUDED_TYPES, C_LIBRARY_TYPES]:
 	for name in tlist:
 		PERMITTED_TYPES.append(re.compile("^%s$" % name))
 

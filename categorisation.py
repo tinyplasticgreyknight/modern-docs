@@ -30,28 +30,31 @@ class Leaf(object):
 		self.ident = ident
 		self.name = name
 		self.semantics = semantics
+		self.level = 0
 
 	def create_entry(self, path_prefix):
 		filename = os.path.join(path_prefix, "%s.rst" % self.name)
 		with io.open(filename, 'w') as stream:
-			write_rest_header(stream, self.name, kind="=")
-			self.write_synopsis(stream)
 			self.write_entry(stream)
-			self.write_semantics(stream)
 
 	def write_entry(self, stream):
+		write_rest_header(stream, self.name, self.level)
+		write_rest_header(stream, "Synopsis", self.level+1)
+		self.write_synopsis(stream)
+		self.write_entry_extra(stream)
+		if self.semantics is not None:
+			stream.write("\n")
+			write_rest_header(stream, "Semantics", self.level+1)
+			self.write_semantics(stream)
+
+	def write_entry_extra(self, stream):
 		pass
 
 	def write_synopsis(self, stream):
-		write_rest_header(stream, "Synopsis", kind="-")
 		stream.write("* **Numeric value:** %d\n" % self.ident)
 		stream.write("* **Standard name:** ``%s``\n" % self.name)
 
 	def write_semantics(self, stream):
-		if self.semantics is None:
-			return
-		stream.write("\n")
-		write_rest_header(stream, "Semantics", kind="-")
 		stream.write("%s\n" % self.semantics)
 
 class NamedParam(object):
@@ -162,6 +165,12 @@ class StructType(ApType):
 		self.ap_name = "struct"
 AP_TYPES['struct'] = StructType
 
+class EnumType(ApType):
+	def __init__(self, inner_type, refs):
+		ApType.__init__(self, inner_type, refs, visual="C")
+		self.ap_name = "enum"
+AP_TYPES['enum'] = EnumType
+
 class ApType2ary(ApType):
 	def __init__(self, inner_types, refs):
 		assert(len(inner_types) == 2)
@@ -198,7 +207,7 @@ class Builtin(Leaf):
 		if ntype is not None:
 			self.type = TypeWithNames(ntype)
 
-	def write_entry(self, stream):
+	def write_entry_extra(self, stream):
 		if self.type is None:
 			return
 		stream.write("* **Type:** ``%s``\n" % str(self.type))
@@ -219,7 +228,6 @@ class CCommon(Builtin):
 		self.type = ntype
 
 	def write_synopsis(self, stream):
-		write_rest_header(stream, "Synopsis", kind="-")
 		stream.write("* **Name:** ``%s``\n" % self.name)
 
 class CFunction(CCommon):
@@ -231,8 +239,18 @@ class CFunction(CCommon):
 		self.type.func_name = self.name
 
 class CStructField(CCommon):
-	def __init__(self, *args, **kwargs):
+	def __init__(self, struct_name, *args, **kwargs):
 		CCommon.__init__(self, *args, **kwargs)
+		self.struct_name = struct_name
+		self.level += 1
+
+	def write_entry(self, stream):
+		write_struct_field_anchor(stream, self.struct_name, self.name)
+		write_rest_header(stream, self.name, self.level)
+		self.write_synopsis(stream)
+		self.write_entry_extra(stream)
+		if self.semantics is not None:
+			self.write_semantics(stream)
 
 class Category(object):
 	def __init__(self, title, name=None, toc_depth=1, is_root=False, use_intro=None):
@@ -241,6 +259,7 @@ class Category(object):
 		self.toc_depth = toc_depth
 		self.is_root = is_root
 		self.has_own_header = False
+		self.print_toc_as_struct = False
 		self.children = []
 		self.leaves = []
 		self.intro_text = None
@@ -319,4 +338,18 @@ class RawChunk(Category):
 
 class CStructCategory(Category):
 	def __init__(self, title, name, refs=None, visual="C"):
-		Category.__init__(self, title, name)
+		Category.__init__(self, title, name, toc_depth=1)
+		self.print_toc_as_struct = True
+
+	def create_tree(self, path_prefix):
+		directory = self.dirname(path_prefix)
+		ensure_dir_exists(os.path.dirname(directory))
+		filename = directory + ".rst"
+
+		with io.open(filename, 'w') as f:
+			write_index(f, self)
+			for leaf in self.leaves:
+				leaf.write_entry(f)
+
+	def toc_entry(self):
+		return self.name
