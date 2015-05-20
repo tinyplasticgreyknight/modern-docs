@@ -1,7 +1,8 @@
 import os, sys, shutil
 import subprocess
 from gather import *
-from funcs import *
+import directory
+import diffs
 from verify import *
 from clibrary import parse_library_header, apply_types_for_c
 import builder
@@ -67,8 +68,8 @@ def info(config):
 
 @builder.mark
 def clean(config):
-	clean_dir(config['rest-dir'])
-	clean_dir(config['build-dir'])
+	directory.remove_if_exists(config['rest-dir'])
+	directory.remove_if_exists(config['build-dir'])
 	return True
 
 @builder.mark
@@ -84,19 +85,19 @@ def showmasks(config):
 
 @builder.mark
 def bless(config):
-	expect_directory(config['rest-dir'])
-	remove_dir_if_exists(config['blessed-copy'])
+	directory.expect(config['rest-dir'])
+	directory.remove_if_exists(config['blessed-copy'])
 	builder.progress("blessing ReST files")
-	shutil.copytree(config['rest-dir'], config['blessed-copy'])
+	directory.copy(config['rest-dir'], config['blessed-copy'])
 	return True
 
 @builder.mark
 def checkblessed(config):
 	actual = config['rest-dir']
 	expected = config['blessed-copy']
-	expect_directory(expected)
-	expect_directory(actual)
-	diff = tree_diff(expected, actual)
+	directory.expect(expected)
+	directory.expect(actual)
+	diff = diffs.tree(expected, actual)
 	if len(diff) == 0:
 		builder.progress("successful match with blessed copy")
 		return True
@@ -113,7 +114,7 @@ def verify_docs(root):
 
 def create_rest_tree(root, source_dir, sphinx_conf_filename):
 	root.create_tree(source_dir)
-	ensure_dir_exists(os.path.join(source_dir, "_static"))
+	directory.ensure_exists(os.path.join(source_dir, "_static"))
 	shutil.copy(sphinx_conf_filename, os.path.join(source_dir, "conf.py"))
 
 def gather_docs(mask, content_dir):
@@ -130,10 +131,6 @@ def load_masks(mask_filename):
 	except IOError:
 		# if file is not present, treat it as empty
 		return []
-
-def clean_dir(dir_name):
-	if os.path.isdir(dir_name):
-		shutil.rmtree(dir_name)
 
 def show_diff(diff, accum=""):
 	for name, item in diff.items():

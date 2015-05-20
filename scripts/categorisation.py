@@ -1,6 +1,7 @@
 import os
 import io
-from funcs import *
+import directory
+from write_rest import *
 from verify import *
 
 AP_TYPES = {}
@@ -292,9 +293,9 @@ class Category(object):
 			return os.path.join(path_prefix, self.name)
 
 	def create_index(self, path_prefix):
-		directory = self.dirname(path_prefix)
-		ensure_dir_exists(directory)
-		with io.open(os.path.join(directory, "index.rst"), 'w') as f:
+		dirname = self.dirname(path_prefix)
+		directory.ensure_exists(dirname)
+		with io.open(os.path.join(dirname, "index.rst"), 'w') as f:
 			write_index(f, self)
 
 	def ordered_children(self):
@@ -326,9 +327,9 @@ class RawChunk(Category):
 			self.contents = f.read()
 
 	def create_tree(self, path_prefix):
-		directory = self.dirname(path_prefix)
-		ensure_dir_exists(os.path.dirname(directory))
-		filename = directory + ".rst"
+		dirname = self.dirname(path_prefix)
+		directory.ensure_exists(os.path.dirname(dirname))
+		filename = dirname + ".rst"
 
 		with io.open(filename, 'w') as f:
 			write_index(f, self)
@@ -342,9 +343,9 @@ class CStructCategory(Category):
 		self.print_toc_as_struct = True
 
 	def create_tree(self, path_prefix):
-		directory = self.dirname(path_prefix)
-		ensure_dir_exists(os.path.dirname(directory))
-		filename = directory + ".rst"
+		dirname = self.dirname(path_prefix)
+		directory.ensure_exists(os.path.dirname(dirname))
+		filename = dirname + ".rst"
 
 		with io.open(filename, 'w') as f:
 			write_index(f, self)
