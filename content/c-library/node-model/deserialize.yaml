@@ -1,0 +1,8 @@
+title: Deserialization
+entries:
+
+- name: modern_deserialize_memory
+- name: modern_deserialize_file
+- name: modern_deserialize_fd
+- name: modern_deserialize_vfile
+- name: modern_deserialize_input_stream

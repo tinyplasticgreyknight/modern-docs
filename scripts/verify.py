@@ -53,6 +53,8 @@ C_LIBRARY_TYPES = [
 	"modern_stream",
 	"modern_vfile",
 	"modern_process",
+	"modern_processor",
+	"modern_context",
 ]
 
 PERMITTED_TYPES = []

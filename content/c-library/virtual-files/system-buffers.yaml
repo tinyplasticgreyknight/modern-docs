@@ -1,0 +1,8 @@
+title: System-managed Buffers
+entries:
+
+- name: modern_vfile_memory_allocating_make
+- name: modern_vfile_memory_allocating_initialize
+- name: modern_vfile_memory_allocating_finalize
+- name: modern_vfile_memory_allocating_bytes_get
+- name: modern_vfile_memory_allocating_data_piece_get

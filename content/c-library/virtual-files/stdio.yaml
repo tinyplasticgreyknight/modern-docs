@@ -1,0 +1,6 @@
+title: stdio Files
+entries:
+
+- name: modern_vfile_stdio_make
+- name: modern_vfile_stdio_initialize
+- name: modern_vfile_stdio_finalize

@@ -1,0 +1,6 @@
+title: Client-managed Memory Buffers
+entries:
+
+- name: modern_vfile_memory_buffer_make
+- name: modern_vfile_memory_buffer_initialize
+- name: modern_vfile_memory_buffer_finalize

@@ -1,0 +1,6 @@
+title: POSIX-style File Descriptors
+entries:
+
+- name: modern_vfile_fd_make
+- name: modern_vfile_fd_initialize
+- name: modern_vfile_fd_finalize

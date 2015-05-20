@@ -1,0 +1,9 @@
+title: Serialization
+entries:
+
+- name: modern_serialize_memory_buffer
+- name: modern_serialize_memory_allocating
+- name: modern_serialize_file
+- name: modern_serialize_fd
+- name: modern_serialize_vfile
+- name: modern_serialize_output_stream
