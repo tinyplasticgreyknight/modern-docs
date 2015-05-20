@@ -61,7 +61,7 @@ for tlist in [PRIMITIVE_TYPES, C_PRIMITIVE_TYPES, C_INCLUDED_TYPES, C_LIBRARY_TY
 	for name in tlist:
 		PERMITTED_TYPES.append(re.compile("^%s$" % name))
 
-def verify_type(supposed, refs):
+def types(supposed, refs):
 	for pattern in PERMITTED_TYPES:
 		if pattern.match(supposed):
 			return True
@@ -69,7 +69,7 @@ def verify_type(supposed, refs):
 		return True
 	raise TypeError("did not recognise %s as a type" % repr(supposed))
 
-def verify_consistency(cat):
+def consistency(cat):
 	def _verify_ident(leaf, idents):
 		if leaf.ident is None: return
 		existing = idents.get(leaf.ident)

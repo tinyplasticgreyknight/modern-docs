@@ -2,13 +2,13 @@ import os
 import io
 import directory
 from write_rest import *
-from verify import *
+import verify
 
 AP_TYPES = {}
 
 def mktype(ntype, refs, visual="haskell"):
 	if type(ntype) == str or type(ntype) == int:
-		verify_type(str(ntype), refs)
+		verify.types(str(ntype), refs)
 		return str(ntype)
 	elif type(ntype) == dict:
 		apkeys = AP_TYPES.keys()

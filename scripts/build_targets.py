@@ -1,27 +1,24 @@
-import os, sys, shutil
 import subprocess
-from gather import *
-import directory
-import diffs
-from verify import *
-from clibrary import parse_library_header, apply_types_for_c
 import builder
+import activities
+import clibrary
+import directory
 
 #=============================================================================
 
 @builder.mark
 def regen(config):
-	masks = load_masks(config['mask-file'])
+	masks = activities.load_masks(config['mask-file'])
 	builder.progress("gathering data")
-	root = gather_docs(masks, config['content-dir'])
+	root = activities.gather_docs(masks, config['content-dir'])
 	builder.progress("examining header")
-	ast = parse_library_header(config['modern-header-file'])
+	ast = clibrary.parse_library_header(config['modern-header-file'])
 	builder.progress("applying extracted C types")
-	apply_types_for_c(root, ast)
+	clibrary.apply_types_for_c(root, ast)
 	builder.progress("verifying consistency")
-	verify_docs(root)
+	activities.verify_docs(root)
 	builder.progress("creating ReST tree")
-	create_rest_tree(root, config['rest-dir'], config['sphinx-conf'])
+	activities.create_rest_tree(root, config['rest-dir'], config['sphinx-conf'])
 	return True
 
 builder.create_simple("html")
@@ -74,7 +71,7 @@ def clean(config):
 
 @builder.mark
 def showmasks(config):
-	masks = load_masks(config['mask-file'])
+	masks = activities.load_masks(config['mask-file'])
 	if len(masks) == 0:
 		print("No masks are loaded")
 		return
@@ -93,51 +90,14 @@ def bless(config):
 
 @builder.mark
 def checkblessed(config):
-	actual = config['rest-dir']
-	expected = config['blessed-copy']
-	directory.expect(expected)
-	directory.expect(actual)
-	diff = diffs.tree(expected, actual)
+	diff = activities.compute_diff(config['blessed-copy'], config['rest-dir'])
 	if len(diff) == 0:
 		builder.progress("successful match with blessed copy")
 		return True
 	else:
 		builder.progress("mismatch")
-		show_diff(diff)
+		activities.show_diff(diff)
 		return False
 
 #=============================================================================
 
-def verify_docs(root):
-	for child in root.children:
-		verify_consistency(child)
-
-def create_rest_tree(root, source_dir, sphinx_conf_filename):
-	root.create_tree(source_dir)
-	directory.ensure_exists(os.path.join(source_dir, "_static"))
-	shutil.copy(sphinx_conf_filename, os.path.join(source_dir, "conf.py"))
-
-def gather_docs(mask, content_dir):
-	root = gather_directory(None, ".", content_dir, mask=mask)
-	root.name = None
-	root.is_root = True
-	#root.toc_depth = 2
-	return root
-
-def load_masks(mask_filename):
-	try:
-		with io.open(mask_filename, 'r') as f:
-			return [os.path.normpath(line.strip()) for line in f]
-	except IOError:
-		# if file is not present, treat it as empty
-		return []
-
-def show_diff(diff, accum=""):
-	for name, item in diff.items():
-		thispath = os.path.join(accum, name)
-		builder.report("difference in [%s]", thispath)
-		if type(item) == list:
-			for line in item:
-				sys.stdout.write(line)
-		else:
-			show_diff(item, thispath)
