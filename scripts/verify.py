@@ -61,7 +61,7 @@ for tlist in [PRIMITIVE_TYPES, C_PRIMITIVE_TYPES, C_INCLUDED_TYPES, C_LIBRARY_TY
 	for name in tlist:
 		PERMITTED_TYPES.append(re.compile("^%s$" % name))
 
-def types(supposed, refs):
+def type_name(supposed, refs):
 	for pattern in PERMITTED_TYPES:
 		if pattern.match(supposed):
 			return True

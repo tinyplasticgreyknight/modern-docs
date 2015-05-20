@@ -21,6 +21,19 @@ def regen(config):
 	activities.create_rest_tree(root, config['rest-dir'], config['sphinx-conf'])
 	return True
 
+@builder.mark
+def verify(config):
+	masks = activities.load_masks(config['mask-file'])
+	builder.progress("gathering data")
+	root = activities.gather_docs(masks, config['content-dir'])
+	builder.progress("examining header")
+	ast = clibrary.parse_library_header(config['modern-header-file'])
+	builder.progress("applying extracted C types")
+	clibrary.apply_types_for_c(root, ast)
+	builder.progress("verifying consistency")
+	activities.verify_docs(root)
+	return True
+
 builder.create_simple("html")
 builder.create_simple("texinfo")
 builder.create_simple("dirhtml")
