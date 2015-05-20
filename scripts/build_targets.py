@@ -4,8 +4,6 @@ import activities
 import clibrary
 import directory
 
-#=============================================================================
-
 @builder.mark
 def help(config):
 	print("Invoke as \"./build.py TARGET\", where TARGET is one of the following:")
@@ -41,22 +39,6 @@ def verify(config):
 	builder.progress("verifying consistency")
 	activities.verify_docs(root)
 	return True
-
-builder.create_simple("html")
-builder.create_simple("texinfo")
-builder.create_simple("dirhtml")
-builder.create_simple("singlehtml")
-builder.create_simple("pickle")
-builder.create_simple("json")
-builder.create_simple("epub")
-builder.create_simple("text")
-builder.create_simple("man")
-builder.create_simple("gettext")
-builder.create_simple("changes")
-builder.create_simple("linkcheck")
-builder.create_simple("doctest")
-builder.create_simple("xml")
-builder.create_simple("pseudoxml")
 
 @builder.mark
 def latex(config):
@@ -120,5 +102,18 @@ def checkblessed(config):
 		activities.show_diff(diff)
 		return False
 
-#=============================================================================
-
+builder.create_simple("changes")
+builder.create_simple("dirhtml")
+builder.create_simple("doctest")
+builder.create_simple("epub")
+builder.create_simple("gettext")
+builder.create_simple("html")
+builder.create_simple("json")
+builder.create_simple("linkcheck")
+builder.create_simple("man")
+builder.create_simple("pickle")
+builder.create_simple("pseudoxml")
+builder.create_simple("singlehtml")
+builder.create_simple("texinfo")
+builder.create_simple("text")
+builder.create_simple("xml")
