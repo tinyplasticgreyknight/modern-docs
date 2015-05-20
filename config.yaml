@@ -7,3 +7,4 @@ mask-file: mask.user
 make-command: make
 sphinx-build-command: sphinx-build
 latex-paper-size: a4
+blessed-copy: rst-blessed

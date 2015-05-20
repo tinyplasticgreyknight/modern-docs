@@ -6,7 +6,7 @@ BUILDERS = {}
 def build(target, config):
 	report("building target [%s]", target)
 	builder = BUILDERS[target]
-	builder(config)
+	return builder(config)
 
 def report(msg, *values):
 	formatted_msg = msg % values
@@ -28,6 +28,7 @@ def create_simple(target):
 	def _builder(config):
 		dependency("regen", config)
 		sphinx(target, config)
+		return True
 	_builder.__name__ = target
 	BUILDERS[target] = _builder
 

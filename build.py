@@ -15,8 +15,12 @@ def load_config():
 
 def main(target="regen"):
 	try:
-		builder.build(target, load_config())
-		builder.report("everything is okay")
+		ok = builder.build(target, load_config())
+		if ok:
+			builder.report("everything is okay")
+		else:
+			builder.report("something went wrong")
+			sys.exit(1)
 	except Exception as e:
 		import traceback
 		builder.report("something went wrong [%s]", e.__class__.__name__)
