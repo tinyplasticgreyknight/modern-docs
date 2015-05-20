@@ -1,7 +1,11 @@
 title: Ordering Builtins
 common:
   semantics_comparison: &comparison |
-    Returns an ``ordering`` value that describes ``comparand1`` as compared to ``comparand2``.
+    Returns an ``ordering`` value that describes the result of comparing the two comparands:
+
+    * a value of ``ordering_value_less`` means that ``comparand1`` < ``comparand2``
+    * a value of ``ordering_value_equal`` means that ``comparand1`` = ``comparand2``
+    * a value of ``ordering_value_greater`` means that ``comparand1`` > ``comparand2``
 
 entries:
 
