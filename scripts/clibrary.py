@@ -1,6 +1,7 @@
 import io
 import pycparser
-from categorisation import CFunction, CStructField, CStructCategory, CTypeWithNames, FunctionPointerType
+from categorisation import CFunction, CStructField, CStructCategory
+from typesignatures import CTypeWithNames
 from verify import C_INCLUDED_TYPES
 
 def parse_library_header(filename):
