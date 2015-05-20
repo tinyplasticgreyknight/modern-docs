@@ -13,7 +13,7 @@ def load_config():
 	with io.open(CONFIG_FILE, 'r') as f:
 		return yaml.load(f.read())
 
-def main(target="regen"):
+def main(target="help"):
 	try:
 		ok = builder.build(target, load_config())
 		if ok:

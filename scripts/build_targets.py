@@ -7,6 +7,14 @@ import directory
 #=============================================================================
 
 @builder.mark
+def help(config):
+	print("Invoke as \"./build.py TARGET\", where TARGET is one of the following:")
+	targets = sorted(builder.available_targets())
+	for target in targets:
+		print("* %s" % target)
+	return True
+
+@builder.mark
 def regen(config):
 	masks = activities.load_masks(config['mask-file'])
 	builder.progress("gathering data")

@@ -8,6 +8,9 @@ def build(target, config):
 	builder = BUILDERS[target]
 	return builder(config)
 
+def available_targets():
+	return BUILDERS.keys()
+
 def report(msg, *values):
 	formatted_msg = msg % values
 	print("==== %s ====" % formatted_msg)
