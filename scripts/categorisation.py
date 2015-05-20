@@ -1,7 +1,7 @@
 import os
 import io
 import directory
-from typesignatures import TypeWithNames
+from typesignatures import TypeWithNames, format_visual_type
 from write_rest import *
 
 class Leaf(object):
@@ -11,22 +11,22 @@ class Leaf(object):
 		self.semantics = semantics
 		self.level = 0
 
-	def create_entry(self, path_prefix):
+	def create_entry(self, path_prefix, visual):
 		filename = os.path.join(path_prefix, "%s.rst" % self.name)
 		with io.open(filename, 'w') as stream:
-			self.write_entry(stream)
+			self.write_entry(stream, visual)
 
-	def write_entry(self, stream):
+	def write_entry(self, stream, visual):
 		write_rest_header(stream, self.name, self.level)
 		write_rest_header(stream, "Synopsis", self.level+1)
 		self.write_synopsis(stream)
-		self.write_entry_extra(stream)
+		self.write_entry_extra(stream, visual)
 		if self.semantics is not None:
 			stream.write("\n")
 			write_rest_header(stream, "Semantics", self.level+1)
 			self.write_semantics(stream)
 
-	def write_entry_extra(self, stream):
+	def write_entry_extra(self, stream, visual):
 		pass
 
 	def write_synopsis(self, stream):
@@ -44,16 +44,16 @@ class Builtin(Leaf):
 		if ntype is not None:
 			self.type = TypeWithNames(ntype)
 
-	def write_entry_extra(self, stream):
+	def write_entry_extra(self, stream, visual):
 		if self.type is None:
 			return
-		stream.write("* **Type:** ``%s``\n" % str(self.type))
+		stream.write("* **Type:** ``%s``\n" % format_visual_type(self.type, visual))
 		if len(self.type.params) > 0:
 			stream.write("* **Parameters:**\n\n")
 			for param in self.type.params:
-				stream.write("  - *%s* : ``%s``\n" % (param.name, str(param.type)))
+				stream.write("  - *%s* : ``%s``\n" % (param.name, format_visual_type(param.type, visual)))
 			stream.write("\n")
-			stream.write("* **Result:** ``%s``\n" % str(self.type.result))
+			stream.write("* **Result:** ``%s``\n" % format_visual_type(self.type.result, visual))
 		if self.fixed_value is not None:
 			stream.write("* **Fixed Value:** ``%s``\n" % str(self.fixed_value))
 
@@ -81,11 +81,11 @@ class CStructField(CCommon):
 		self.struct_name = struct_name
 		self.level += 1
 
-	def write_entry(self, stream):
+	def write_entry(self, stream, visual):
 		stream.write("\n")
 		write_rest_header(stream, self.name, self.level)
 		self.write_synopsis(stream)
-		self.write_entry_extra(stream)
+		self.write_entry_extra(stream, "C")
 		if self.semantics is not None:
 			self.write_semantics(stream)
 
@@ -102,6 +102,7 @@ class Category(object):
 		self.intro_text = None
 		self.contents = None
 		self.child_ordering = None
+		self.force_visual = None
 		if use_intro is not None:
 			with io.open(use_intro, 'r') as f:
 				self.intro_text = f.read()
@@ -115,12 +116,14 @@ class Category(object):
 	def toc_entry(self):
 		return "%s/index" % self.name
 
-	def create_tree(self, path_prefix):
+	def create_tree(self, path_prefix, visual):
+		if self.force_visual is not None:
+			visual = self.force_visual
 		self.create_index(path_prefix)
 		for child in self.children:
-			child.create_tree(self.dirname(path_prefix))
+			child.create_tree(self.dirname(path_prefix), visual)
 		for leaf in self.leaves:
-			leaf.create_entry(self.dirname(path_prefix))
+			leaf.create_entry(self.dirname(path_prefix), visual)
 
 	def dirname(self, path_prefix):
 		if self.name is None:
@@ -152,6 +155,12 @@ class Category(object):
 
 		return ordered
 
+	def child_by_name(self, cname):
+		for child in self.children:
+			if child.name == cname:
+				return child
+		raise KeyError("no child named %s" % str(cname))
+
 class RawChunk(Category):
 	def __init__(self, filename, name):
 		Category.__init__(self, name, name)
@@ -162,7 +171,7 @@ class RawChunk(Category):
 		with io.open(filename, 'r') as f:
 			self.contents = f.read()
 
-	def create_tree(self, path_prefix):
+	def create_tree(self, path_prefix, visual):
 		dirname = self.dirname(path_prefix)
 		directory.ensure_exists(os.path.dirname(dirname))
 		filename = dirname + ".rst"
@@ -178,7 +187,7 @@ class CStructCategory(Category):
 		Category.__init__(self, title, name, toc_depth=1)
 		self.print_toc_as_struct = True
 
-	def create_tree(self, path_prefix):
+	def create_tree(self, path_prefix, visual):
 		dirname = self.dirname(path_prefix)
 		directory.ensure_exists(os.path.dirname(dirname))
 		filename = dirname + ".rst"
@@ -186,7 +195,7 @@ class CStructCategory(Category):
 		with io.open(filename, 'w') as f:
 			write_index(f, self)
 			for leaf in self.leaves:
-				leaf.write_entry(f)
+				leaf.write_entry(f, "C")
 
 	def toc_entry(self):
 		return self.name

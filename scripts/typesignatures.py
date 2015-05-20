@@ -2,7 +2,7 @@ import verify
 
 AP_TYPES = {}
 
-def mktype(ntype, refs, visual="haskell"):
+def mktype(ntype, refs):
 	if type(ntype) == str or type(ntype) == int:
 		verify.type_name(str(ntype), refs)
 		return str(ntype)
@@ -14,85 +14,45 @@ def mktype(ntype, refs, visual="haskell"):
 				return ctor(ntype[ctor_name], refs)
 		raise TypeError("didn't recognise ap-type %s" % repr(ntype))
 	elif type(ntype) == list:
-		if visual == "haskell":
-			return TypeWithNames(ntype, refs)
-		elif visual == "C":
-			typ = CTypeWithNames(ntype, refs)
-			return typ
+		return TypeWithNames(ntype, refs)
 	else:
 		raise TypeError("didn't recognise type %s (%s)" % (repr(ntype), type(ntype)))
 
 class NamedParam(object):
-	def __init__(self, name, ntype, refs=None, visual="haskell"):
+	def __init__(self, name, ntype, refs=None):
 		if refs is None: refs = []
 		self.name = name
-		self.type = mktype(ntype, refs, visual)
+		self.type = mktype(ntype, refs)
 
 class TypeWithNames(object):
-	def __init__(self, yaml, refs=None, visual="haskell"):
+	def __init__(self, yaml, refs=None):
 		if refs is None: refs = []
 		self.terms = []
 		self.params = []
 		self.result = None
-		self.read_yaml(yaml, refs, visual)
+		self.func_name = "(*)"
+		self.read_yaml(yaml, refs)
 
-	def read_yaml(self, yaml, refs, visual):
+	def read_yaml(self, yaml, refs):
 		for term in yaml:
 			assert(len(term) == 1)
-			name = list(term.keys())[0]
-			ptype = term[name]
-			refs.append(name)
-			param = NamedParam(name, ptype, refs=refs, visual=visual)
+			pname = list(term.keys())[0]
+			ptype = term[pname]
+			refs.append(pname)
+			param = NamedParam(pname, ptype, refs=refs)
 			self.terms.append(param)
-			if name == "result":
+			if pname == "result":
 				self.result = param.type
 			else:
 				self.params.append(param)
-
-	def __str__(self):
-		vterms = []
-		for term in self.terms:
-			ttyp = term.type
-			if (type(ttyp) == str) or isinstance(ttyp, ApType):
-				vterms.append(str(ttyp))
-			else:
-				vterms.append("(%s)" % str(ttyp))
-		return " -> ".join(vterms)
-
-class CTypeWithNames(TypeWithNames):
-	def __init__(self, yaml, refs=None, visual="C"):
-		TypeWithNames.__init__(self, yaml, refs, visual)
-		self.func_name = "(*)"
-
-	def __str__(self):
-		if len(self.params) == 0:
-			return str(self.result)
-		vterms = []
-		for term in self.params:
-			ttyp = term.type
-			if (type(ttyp) == str) or isinstance(ttyp, ApType):
-				vterms.append("%s %s" % (str(ttyp), term.name))
-			else:
-				vterms.append("(%s)" % str(ttyp))
-		param_str = ", ".join(vterms)
-		return "%s %s(%s)" % (str(self.result), self.func_name, param_str)
+		if self.result is None:
+			rparam = self.params.pop()
+			self.result = rparam.type
 
 class ApType(object):
-	def __init__(self, inner_type, refs, visual="haskell"):
+	def __init__(self, inner_type, refs):
 		self.ap_name = None
-		self.inner_type = mktype(inner_type, refs, visual)
-
-	def str_interior_part(self, obj):
-		if type(obj) == str:
-			return obj
-		else:
-			return "(%s)" % str(obj)
-
-	def interior(self):
-		return self.str_interior_part(self.inner_type)
-
-	def __str__(self):
-		return "%s %s" % (self.ap_name, self.interior())
+		self.inner_type = mktype(inner_type, refs)
 
 class MaybeType(ApType):
 	def __init__(self, inner_type, refs):
@@ -108,58 +68,130 @@ AP_TYPES['universe'] = UniverseType
 
 class PointerType(ApType):
 	def __init__(self, inner_type, refs):
-		ApType.__init__(self, inner_type, refs, visual="C")
+		ApType.__init__(self, inner_type, refs)
 		self.ap_name = "ptr"
-
-	def __str__(self):
-		return "%s *" % self.inner_type
 AP_TYPES['ptr'] = PointerType
 
 class FunctionPointerType(ApType):
 	def __init__(self, inner_type, refs):
-		ApType.__init__(self, inner_type, refs, visual="C")
+		ApType.__init__(self, inner_type, refs)
 		self.ap_name = "funcptr"
-
-	def __str__(self):
-		return str(self.inner_type)
 AP_TYPES['funcptr'] = FunctionPointerType
 
 class StructType(ApType):
 	def __init__(self, inner_type, refs):
-		ApType.__init__(self, inner_type, refs, visual="C")
+		ApType.__init__(self, inner_type, refs)
 		self.ap_name = "struct"
 AP_TYPES['struct'] = StructType
 
 class EnumType(ApType):
 	def __init__(self, inner_type, refs):
-		ApType.__init__(self, inner_type, refs, visual="C")
+		ApType.__init__(self, inner_type, refs)
 		self.ap_name = "enum"
 AP_TYPES['enum'] = EnumType
 
-class ApType2ary(ApType):
+class ApTypeNary(ApType):
 	def __init__(self, inner_types, refs):
-		assert(len(inner_types) == 2)
-		self.inner0 = mktype(inner_types[0], refs)
-		self.inner1 = mktype(inner_types[1], refs)
+		self.inner_types = [mktype(item, refs) for item in inner_types]
 		self.ap_name = None
 
-	def interior(self):
-		return "%s %s" % (self.str_interior_part(self.inner0), self.str_interior_part(self.inner1))
-
-class SatisfiesType(ApType2ary):
+class SatisfiesType(ApTypeNary):
 	def __init__(self, inner_types, refs):
-		ApType2ary.__init__(self, inner_types, refs)
+		ApTypeNary.__init__(self, inner_types, refs)
 		self.ap_name = "satisfies"
 AP_TYPES['satisfies'] = SatisfiesType
 
-class NamedType(ApType2ary):
+class NamedType(ApTypeNary):
 	def __init__(self, inner_types, refs):
-		ApType2ary.__init__(self, inner_types, refs)
+		ApTypeNary.__init__(self, inner_types, refs)
 		self.ap_name = "named"
 AP_TYPES['named'] = NamedType
 
-class SigmaType(ApType2ary):
+class SigmaType(ApTypeNary):
 	def __init__(self, inner_types, refs):
-		ApType2ary.__init__(self, inner_types, refs)
+		ApTypeNary.__init__(self, inner_types, refs)
 		self.ap_name = "sigma"
 AP_TYPES['sigma'] = SigmaType
+
+def format_term_haskell(term):
+	return format_haskell_type(term.type, parent="lambda")
+
+def format_join_haskell(func_name, params, result):
+	return " -> ".join(params + [result])
+
+def format_component_haskell(signature, here, parent):
+	if parent=="top":
+		return signature
+	if parent=="lambda" and here=="ap":
+		return signature
+	else:
+		return "(%s)" % signature
+
+def format_type(typ, term_formatter, join_formatter, component_formatter, parent="top"):
+	def subformat(t, parent):
+		return format_type(t, term_formatter, join_formatter, component_formatter, parent=parent)
+	if typ is None:
+		return "NONE"
+	elif type(typ) == str:
+		return typ
+	elif isinstance(typ, ApType):
+		if isinstance(typ, ApTypeNary):
+			interior = " ".join([subformat(t, "ap") for t in typ.inner_types])
+		elif isinstance(typ, PointerType):
+			interior = subformat(typ.inner_type, "top")
+			return "%s *" % interior
+		else:
+			interior = subformat(typ.inner_type, "ap")
+		signature = "%s %s" % (typ.ap_name, interior)
+		if signature == "maybe universe 0":
+			print(parent)
+			raise Exception()
+		return component_formatter(signature, "ap", parent)
+	else:
+		result = subformat(typ.result, "lambda")
+		vparams = [term_formatter(param) for param in typ.params]
+		signature = join_formatter(typ.func_name, vparams, result)
+		return component_formatter(signature, "lambda", parent)
+
+def format_visual_type(typ, visual):
+	if visual == "haskell":
+		return format_haskell_type(typ)
+	elif visual == "C":
+		return format_C_type(typ)
+	else:
+		raise KeyError("bad visual %s" % visual)
+
+def format_haskell_type(typ, parent="top"):
+	return format_type(typ, format_term_haskell, format_join_haskell, format_component_haskell, parent)
+
+def format_C_type(typ, parent="top"):
+	return format_type(typ, format_term_C, format_join_C, format_component_C, parent)
+
+def format_term_C(term):
+	type_part = format_C_type(term.type, parent="lambda")
+	return "%s %s" % (type_part, term.name)
+
+def format_join_C(func_name, params, result):
+	param_str = ", ".join(params)
+	return "%s %s(%s)" % (result, func_name, param_str)
+
+def format_component_C(signature, here, parent):
+	if parent=="top":
+		return signature
+	if parent=="lambda" and here=="ap":
+		return signature
+	else:
+		return "(%s)" % signature
+
+def __format_C_type(typ, parent="top"):
+	if len(self.params) == 0:
+		return str(self.result)
+	vterms = []
+	for term in self.params:
+		ttyp = term.type
+		if (type(ttyp) == str) or isinstance(ttyp, ApType):
+			vterms.append("%s %s" % (str(ttyp), term.name))
+		else:
+			vterms.append("(%s)" % str(ttyp))
+	param_str = ", ".join(vterms)
+	return "%s %s(%s)" % (str(self.result), self.func_name, param_str)

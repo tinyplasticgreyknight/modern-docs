@@ -29,5 +29,6 @@ def main(target="help"):
 		builder.report("stack trace")
 		trace = sys.exc_info()[2]
 		traceback.print_tb(trace, None, sys.stdout)
+		sys.exit(1)
 
 main(*sys.argv[1:])

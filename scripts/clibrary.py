@@ -1,7 +1,7 @@
 import io
 import pycparser
 from categorisation import CFunction, CStructField, CStructCategory
-from typesignatures import CTypeWithNames
+from typesignatures import TypeWithNames
 from verify import C_INCLUDED_TYPES
 
 def parse_library_header(filename):
@@ -33,7 +33,7 @@ def apply_func_type(leaf, ast):
 	if node is None:
 		raise KeyError("cannot find declaration for function %s in header" % leaf.name)
 	sig = signature(node)
-	leaf.set_type(CTypeWithNames(sig))
+	leaf.set_type(TypeWithNames(sig))
 
 def apply_struct_types(cat, ast):
 	node = find_struct_decl(cat.name, ast)
@@ -49,8 +49,7 @@ def apply_field_type(cat, leaf, struct_ast):
 	if node is None:
 		raise KeyError("cannot find definition for struct field %s.%s in header" % (cat.name, leaf.name))
 	sig = signature(node)
-	#sig = sig # TODO: probably need to fix up signature() to resolve this properly
-	leaf.set_type(CTypeWithNames(sig))
+	leaf.set_type(TypeWithNames(sig))
 
 def find_func_decl(name, root):
 	for _child in root.children():

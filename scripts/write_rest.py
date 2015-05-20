@@ -1,5 +1,6 @@
 import os, sys, shutil
 import io
+from typesignatures import format_visual_type
 
 REST_HEADER_LEVELS = ["=", "-", "~"]
 def write_rest_header(stream, text, level=0):
@@ -43,7 +44,7 @@ def write_index_toc_struct(stream, category):
 	stream.write("| ``struct %s {``\n" % category.name)
 	for leaf in category.leaves:
 		link = struct_field_link(category.name, leaf.name)
-		stream.write("|\t``%s`` %s ``;``\n" % (str(leaf.type), link))
+		stream.write("|\t``%s`` %s ``;``\n" % (format_visual_type(leaf.type, "C"), link))
 	stream.write("| ``}``\n")
 
 def struct_field_link(struct_name, field_name):

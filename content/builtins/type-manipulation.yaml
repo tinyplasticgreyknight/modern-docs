@@ -17,7 +17,6 @@ entries:
   name: get_function_type_result
   type:
   - a: {universe: 0}
-  - result: {universe: 0}
   - result: {maybe: {universe: 0}}
 
 - id: 2144
